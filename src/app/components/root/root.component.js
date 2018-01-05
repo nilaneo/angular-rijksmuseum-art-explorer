@@ -1,12 +1,12 @@
 import template from './root.component.html';
 
-class RootComponent {
+export class RootComponent {
   constructor() {
     console.log('RootComponent created!')
   }
 }
 
-export default {
+export const rootComponentDeclaration = {
   rmRoot: {
     bindings: {},
     controller: RootComponent,

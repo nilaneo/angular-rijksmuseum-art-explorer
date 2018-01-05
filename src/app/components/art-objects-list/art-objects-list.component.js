@@ -1,12 +1,16 @@
+import { rijksmuseumApiServiceToken } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 import template from './art-objects-list.component.html';
 
-class ArtObjectsListComponent {
-  constructor() {
+export class ArtObjectsListComponent {
+  static get $inject () {
+    return [rijksmuseumApiServiceToken];
+  }
+  constructor(rijksmuseumApiService) {
     console.log('ArtObjectsListComponent created!')
   }
 }
 
-export default {
+export const artObjectsListDeclaration = {
   rmArtObjectsList: {
     bindings: {},
     controller: ArtObjectsListComponent,
