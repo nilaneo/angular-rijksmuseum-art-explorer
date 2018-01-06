@@ -1,4 +1,5 @@
 import template from './root.component.html';
+import './root.component.css';
 
 export class RootComponent {
   constructor() {

@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+}
+
+.art-objects-list-wrapper {
+  flex: 0 0 300px;
+}
+
+.art-object-details-wrapper {
+  flex-grow: 1;
+}

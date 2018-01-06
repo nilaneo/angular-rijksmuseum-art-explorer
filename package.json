@@ -11,8 +11,10 @@
   "author": "Dmytro Yarmak <dmytroyarmak@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "css-loader": "^0.28.7",
     "html-webpack-plugin": "^2.30.1",
     "raw-loader": "^0.5.1",
+    "style-loader": "^0.19.1",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
   },
