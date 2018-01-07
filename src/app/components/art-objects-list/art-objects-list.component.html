@@ -1,1 +1,10 @@
-<h2>art-objects-list</h2>
+<ul class="art-objects-list">
+  <li
+    ng-repeat="artObject in $ctrl.artObjects"
+    class="art-objects-list-item"
+    ng-class="{'is-selected': $ctrl.isSelected(artObject)}"
+    ng-click="$ctrl.selectArtObject(artObject)"
+  >
+    {{artObject.title}}
+  </li>
+</ul>

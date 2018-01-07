@@ -1,12 +1,32 @@
 import { rijksmuseumApiServiceToken } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 import template from './art-objects-list.component.html';
+import './art-objects-list.component.css';
 
 export class ArtObjectsListComponent {
   static get $inject () {
     return [rijksmuseumApiServiceToken];
   }
+
   constructor(rijksmuseumApiService) {
-    console.log('ArtObjectsListComponent created!')
+    this.artObjects = null;
+    this.selectedArtObjectNumber = null;
+    this.rijksmuseumApiService = rijksmuseumApiService;
+  }
+
+  $onInit() {
+    this.rijksmuseumApiService
+      .getList()
+      .then((data) => {
+        this.artObjects = data;
+      });
+  }
+
+  selectArtObject(artObject) {
+    this.selectedArtObjectNumber = artObject.objectNumber;
+  }
+
+  isSelected(artObject) {
+    return artObject.objectNumber === this.selectedArtObjectNumber;
   }
 }
 
