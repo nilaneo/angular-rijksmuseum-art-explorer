@@ -8,4 +8,5 @@
 
 .art-object-details-wrapper {
   flex-grow: 1;
+  margin-left: 20px;
 }
