@@ -6,26 +6,36 @@ export class ArtObjectDetailsComponent {
   static get $inject () {
     return [rijksmuseumApiServiceToken];
   }
+
   constructor(rijksmuseumApiService) {
-    this.objectNumber = 'SK-A-1115';
+    this.objectNumber = null;
     this.artObjectDetails = null;
     this.rijksmuseumApiService = rijksmuseumApiService;
   }
-  $onInit() {
-    this.loadDetails();
+
+  $onChanges(changes) {
+    if ('objectNumber' in changes) {
+      this.artObjectDetails = null;
+      this.loadDetails();
+    }
   }
+
   loadDetails() {
-    this.rijksmuseumApiService
-      .getDetails(this.objectNumber)
-      .then((artObjectDetails) => {
-        this.artObjectDetails = artObjectDetails;
-      });
+    if (this.objectNumber) {
+      this.rijksmuseumApiService
+        .getDetails(this.objectNumber)
+        .then((artObjectDetails) => {
+          this.artObjectDetails = artObjectDetails;
+        });
+    }
   }
 }
 
 export const artObjectDetailsDeclaration = {
   rmArtObjectDetails: {
-    bindings: {},
+    bindings: {
+      objectNumber: '<'
+    },
     controller: ArtObjectDetailsComponent,
     template
   }

@@ -23,6 +23,9 @@ export class ArtObjectsListComponent {
 
   selectArtObject(artObject) {
     this.selectedArtObjectNumber = artObject.objectNumber;
+    this.onSelect({
+      $event: artObject
+    });
   }
 
   isSelected(artObject) {
@@ -32,7 +35,9 @@ export class ArtObjectsListComponent {
 
 export const artObjectsListDeclaration = {
   rmArtObjectsList: {
-    bindings: {},
+    bindings: {
+      onSelect: '&'
+    },
     controller: ArtObjectsListComponent,
     template
   }

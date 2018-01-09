@@ -3,7 +3,11 @@ import './root.component.css';
 
 export class RootComponent {
   constructor() {
-    console.log('RootComponent created!')
+    this.selectedArtObjectNumber = null;
+  }
+
+  onSelect($event) {
+    this.selectedArtObjectNumber = $event.objectNumber;
   }
 }
 
