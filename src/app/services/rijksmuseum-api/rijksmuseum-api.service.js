@@ -6,12 +6,13 @@ export class RijksmuseumApiService {
     this.$http = $http;
   }
 
-  getList() {
+  getList(searchQuery = '') {
     return this.$http
       .get('https://www.rijksmuseum.nl/api/en/collection', {
         params: {
           format: 'json',
-          key: '3tYxhQmI'
+          key: '3tYxhQmI',
+          q: searchQuery
         }
       })
       .then((response) => response.data.artObjects);

@@ -4,6 +4,11 @@ import './root.component.css';
 export class RootComponent {
   constructor() {
     this.selectedArtObjectNumber = null;
+    this.searchQuery = '';
+  }
+
+  onSearch($event) {
+    this.searchQuery = $event.searchQuery;
   }
 
   onSelect($event) {

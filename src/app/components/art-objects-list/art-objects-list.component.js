@@ -13,9 +13,15 @@ export class ArtObjectsListComponent {
     this.rijksmuseumApiService = rijksmuseumApiService;
   }
 
-  $onInit() {
+  $onChanges(changes) {
+    if ('searchQuery' in changes) {
+      this.loadList();
+    }
+  }
+
+  loadList() {
     this.rijksmuseumApiService
-      .getList()
+      .getList(this.searchQuery)
       .then((data) => {
         this.artObjects = data;
       });
@@ -36,6 +42,8 @@ export class ArtObjectsListComponent {
 export const artObjectsListDeclaration = {
   rmArtObjectsList: {
     bindings: {
+      title: '<',
+      searchQuery: '<',
       onSelect: '&'
     },
     controller: ArtObjectsListComponent,

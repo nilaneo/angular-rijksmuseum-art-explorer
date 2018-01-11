@@ -2,8 +2,13 @@
 
 <div class="container">
   <div class="art-objects-list-wrapper">
-    <rm-art-objects-search></rm-art-objects-search>
-    <rm-art-objects-list on-select="$ctrl.onSelect($event)"></rm-art-objects-list>
+    <rm-art-objects-search
+      on-search="$ctrl.onSearch($event)"
+    ></rm-art-objects-search>
+    <rm-art-objects-list
+      search-query="$ctrl.searchQuery"
+      on-select="$ctrl.onSelect($event)"
+    ></rm-art-objects-list>
   </div>
   <div class="art-object-details-wrapper">
     <rm-art-object-details object-number="$ctrl.selectedArtObjectNumber"></rm-art-object-details>

@@ -1,4 +1,4 @@
-<div>
+<form ng-submit="$ctrl.onSubmit()">
   <input type="text" ng-model="$ctrl.searchQuery" placeholder="Enter search query">
-  <button ng-click="$ctrl.onClick()">Search</button>
-</div>
+  <button type="submit">Search</button>
+</form>

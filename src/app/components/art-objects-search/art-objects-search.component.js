@@ -6,7 +6,7 @@ export class ArtObjectsSearchComponent {
     this.searchQuery = '';
   }
 
-  onClick() {
+  onSubmit() {
     this.onSearch({
       $event: {
         searchQuery: this.searchQuery
