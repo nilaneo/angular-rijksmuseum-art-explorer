@@ -9,6 +9,10 @@
       search-query="$ctrl.searchQuery"
       on-select="$ctrl.onSelect($event)"
     ></rm-art-objects-list>
+    <rm-pagination
+      current-page="$ctrl.currentPage"
+      on-page-change="$ctrl.onPageChange($event)"
+    ></rm-pagination>
   </div>
   <div class="art-object-details-wrapper">
     <rm-art-object-details object-number="$ctrl.selectedArtObjectNumber"></rm-art-object-details>
