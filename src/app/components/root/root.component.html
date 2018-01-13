@@ -7,10 +7,14 @@
     ></rm-art-objects-search>
     <rm-art-objects-list
       search-query="$ctrl.searchQuery"
+      page="$ctrl.currentPage"
+      page-size="$ctrl.pageSize"
       on-select="$ctrl.onSelect($event)"
+      on-list-load="$ctrl.onListLoad($event)"
     ></rm-art-objects-list>
     <rm-pagination
       current-page="$ctrl.currentPage"
+      total-pages="$ctrl.totalPages"
       on-page-change="$ctrl.onPageChange($event)"
     ></rm-pagination>
   </div>

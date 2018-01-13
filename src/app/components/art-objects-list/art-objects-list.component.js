@@ -14,16 +14,25 @@ export class ArtObjectsListComponent {
   }
 
   $onChanges(changes) {
-    if ('searchQuery' in changes) {
+    if ('searchQuery' in changes || 'page' in changes) {
       this.loadList();
     }
   }
 
   loadList() {
     this.rijksmuseumApiService
-      .getList(this.searchQuery)
+      .getList({
+        searchQuery: this.searchQuery,
+        page: this.page,
+        pageSize: this.pageSize
+      })
       .then((data) => {
-        this.artObjects = data;
+        this.artObjects = data.artObjects;
+        this.onListLoad({
+          $event: {
+            data
+          }
+        });
       });
   }
 
@@ -42,9 +51,11 @@ export class ArtObjectsListComponent {
 export const artObjectsListDeclaration = {
   rmArtObjectsList: {
     bindings: {
-      title: '<',
       searchQuery: '<',
-      onSelect: '&'
+      page: '<',
+      pageSize: '<',
+      onSelect: '&',
+      onListLoad: '&'
     },
     controller: ArtObjectsListComponent,
     template

@@ -23,6 +23,7 @@ export const paginationDeclaration = {
   rmPagination: {
     bindings: {
       currentPage: '<',
+      totalPages: '<',
       onPageChange: '&'
     },
     controller: PaginationComponent,

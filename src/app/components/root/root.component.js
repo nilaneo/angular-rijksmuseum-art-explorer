@@ -5,7 +5,9 @@ export class RootComponent {
   constructor() {
     this.selectedArtObjectNumber = null;
     this.searchQuery = '';
-    this.currentPage = 0;
+    this.currentPage = 1;
+    this.pageSize = 10;
+    this.totalPages = null;
   }
 
   onSearch($event) {
@@ -18,6 +20,10 @@ export class RootComponent {
 
   onPageChange($event) {
     this.currentPage = $event.newCurrentPage;
+  }
+
+  onListLoad($event) {
+    this.totalPages = Math.ceil($event.data.count / this.pageSize);
   }
 }
 
