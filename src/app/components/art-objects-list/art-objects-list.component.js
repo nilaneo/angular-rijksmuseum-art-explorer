@@ -14,7 +14,11 @@ export class ArtObjectsListComponent {
   }
 
   $onChanges(changes) {
-    if ('searchQuery' in changes || 'page' in changes) {
+    if (
+      'searchQuery' in changes ||
+      'page' in changes ||
+      'pageSize' in changes
+    ) {
       this.loadList();
     }
   }

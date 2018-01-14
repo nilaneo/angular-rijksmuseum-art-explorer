@@ -12,6 +12,7 @@ export class RootComponent {
 
   onSearch($event) {
     this.searchQuery = $event.searchQuery;
+    this.currentPage = 1;
   }
 
   onSelect($event) {
@@ -20,6 +21,10 @@ export class RootComponent {
 
   onPageChange($event) {
     this.currentPage = $event.newCurrentPage;
+  }
+
+  onPageSizeChange($event) {
+    this.pageSize = $event.newPageSize;
   }
 
   onListLoad($event) {

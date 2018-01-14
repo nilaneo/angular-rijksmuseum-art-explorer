@@ -9,3 +9,9 @@
   type="button"
   ng-click="$ctrl.onClickNext()"
 >Next</button>
+
+<select
+  ng-model="$ctrl.newPageSize"
+  ng-change="$ctrl.onChoosePageSize()"
+  ng-options="pageSizeOption + ' per page' for pageSizeOption in $ctrl.pageSizeOptions"
+></select>
