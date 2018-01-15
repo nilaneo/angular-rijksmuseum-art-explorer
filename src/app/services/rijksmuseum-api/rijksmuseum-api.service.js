@@ -6,13 +6,19 @@ export class RijksmuseumApiService {
     this.$http = $http;
   }
 
-  getList({ searchQuery = '', page = 1, pageSize = 10 } = {}) {
+  getList({
+    searchQuery = '',
+    sortOrder = 'objecttype',
+    page = 1,
+    pageSize = 10
+  } = {}) {
     return this.$http
       .get('https://www.rijksmuseum.nl/api/en/collection', {
         params: {
           format: 'json',
           key: '3tYxhQmI',
           q: searchQuery,
+          s: sortOrder,
           ps: pageSize,
           p: page
         }

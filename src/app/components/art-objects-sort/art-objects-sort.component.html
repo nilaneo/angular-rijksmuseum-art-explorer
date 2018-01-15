@@ -1,0 +1,9 @@
+<span>Order by: </span>
+<select ng-model="$ctrl.sortOrder" ng-change="$ctrl.changeSortOrder()">
+  <option value="relevance">Relevance</option>
+  <option value="objecttype">Type of work</option>
+  <option value="chronologic">Chronological old > new</option>
+  <option value="achronologic">Chronological new > old</option>
+  <option value="artist">Artist A > Z</option>
+  <option value="artistdesc">Artist Z > A</option>
+</select>

@@ -16,6 +16,7 @@ export class ArtObjectsListComponent {
   $onChanges(changes) {
     if (
       'searchQuery' in changes ||
+      'sortOrder' in changes ||
       'page' in changes ||
       'pageSize' in changes
     ) {
@@ -27,6 +28,7 @@ export class ArtObjectsListComponent {
     this.rijksmuseumApiService
       .getList({
         searchQuery: this.searchQuery,
+        sortOrder: this.sortOrder,
         page: this.page,
         pageSize: this.pageSize
       })
@@ -56,6 +58,7 @@ export const artObjectsListDeclaration = {
   rmArtObjectsList: {
     bindings: {
       searchQuery: '<',
+      sortOrder: '<',
       page: '<',
       pageSize: '<',
       onSelect: '&',

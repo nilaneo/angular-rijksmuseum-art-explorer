@@ -5,6 +5,7 @@ export class RootComponent {
   constructor() {
     this.selectedArtObjectNumber = null;
     this.searchQuery = '';
+    this.sortOrder = 'objecttype';
     this.currentPage = 1;
     this.pageSize = 10;
     this.totalPages = null;
@@ -12,6 +13,11 @@ export class RootComponent {
 
   onSearch($event) {
     this.searchQuery = $event.searchQuery;
+    this.currentPage = 1;
+  }
+
+  onSortOrderChange($event) {
+    this.sortOrder = $event.newSortOrder;
     this.currentPage = 1;
   }
 

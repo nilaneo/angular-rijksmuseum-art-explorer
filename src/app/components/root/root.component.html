@@ -5,13 +5,21 @@
     <rm-art-objects-search
       on-search="$ctrl.onSearch($event)"
     ></rm-art-objects-search>
+
+    <rm-art-objects-sort
+      sort-order="$ctrl.sortOrder"
+      on-sort-order-change="$ctrl.onSortOrderChange($event)"
+    ></rm-art-objects-sort>
+
     <rm-art-objects-list
       search-query="$ctrl.searchQuery"
+      sort-order="$ctrl.sortOrder"
       page="$ctrl.currentPage"
       page-size="$ctrl.pageSize"
       on-select="$ctrl.onSelect($event)"
       on-list-load="$ctrl.onListLoad($event)"
     ></rm-art-objects-list>
+
     <rm-pagination
       current-page="$ctrl.currentPage"
       total-pages="$ctrl.totalPages"
