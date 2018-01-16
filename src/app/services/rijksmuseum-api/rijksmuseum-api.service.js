@@ -1,14 +1,17 @@
+import { defaultSortOrderToken } from '../../values/sort-orders.value';
+
 export class RijksmuseumApiService {
   static get $inject() {
-    return ['$http'];
+    return ['$http', defaultSortOrderToken];
   }
-  constructor($http) {
+  constructor($http, defaultSortOrder) {
     this.$http = $http;
+    this.defaultSortOrder = defaultSortOrder;
   }
 
   getList({
     searchQuery = '',
-    sortOrder = 'objecttype',
+    sortOrder = this.defaultSortOrder,
     page = 1,
     pageSize = 10
   } = {}) {

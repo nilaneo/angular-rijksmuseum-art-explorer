@@ -1,11 +1,15 @@
+import { defaultSortOrderToken } from '../../values/sort-orders.value';
 import template from './root.component.html';
 import './root.component.css';
 
 export class RootComponent {
-  constructor() {
+  static get $inject() {
+    return [defaultSortOrderToken];
+  }
+  constructor(defaultSortOrder) {
     this.selectedArtObjectNumber = null;
     this.searchQuery = '';
-    this.sortOrder = 'objecttype';
+    this.sortOrder = defaultSortOrder;
     this.currentPage = 1;
     this.pageSize = 10;
     this.totalPages = null;
