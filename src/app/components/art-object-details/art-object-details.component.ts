@@ -3,15 +3,16 @@ import template from './art-object-details.component.html';
 import './art-object-details.component.css';
 
 export class ArtObjectDetailsComponent {
+  artObjectDetails;
+  objectNumber;
+
   static get $inject () {
     return [rijksmuseumApiServiceToken];
   }
 
-  constructor(rijksmuseumApiService) {
-    this.objectNumber = null;
-    this.artObjectDetails = null;
-    this.rijksmuseumApiService = rijksmuseumApiService;
-  }
+  constructor(
+    private rijksmuseumApiService
+  ) {}
 
   $onChanges(changes) {
     if ('objectNumber' in changes) {
@@ -31,12 +32,11 @@ export class ArtObjectDetailsComponent {
   }
 }
 
-export const artObjectDetailsDeclaration = {
-  rmArtObjectDetails: {
-    bindings: {
-      objectNumber: '<'
-    },
-    controller: ArtObjectDetailsComponent,
-    template
-  }
+export const artObjectDetailsComponentName = 'rmArtObjectDetails';
+export const artObjectDetailsComponentOptions = {
+  bindings: {
+    objectNumber: '<'
+  },
+  controller: ArtObjectDetailsComponent,
+  template
 };

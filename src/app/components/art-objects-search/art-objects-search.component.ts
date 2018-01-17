@@ -2,9 +2,8 @@ import template from './art-objects-search.component.html';
 import './art-objects-search.component.css';
 
 export class ArtObjectsSearchComponent {
-  constructor() {
-    this.searchQuery = '';
-  }
+  searchQuery = '';
+  onSearch;
 
   onSubmit() {
     this.onSearch({
@@ -15,12 +14,11 @@ export class ArtObjectsSearchComponent {
   }
 }
 
-export const artObjectsSearchDeclaration = {
-  rmArtObjectsSearch: {
-    bindings: {
-      onSearch: '&'
-    },
-    controller: ArtObjectsSearchComponent,
-    template
-  }
+export const artObjectsSearchComponentName = 'rmArtObjectsSearch';
+export const artObjectsSearchComponentOptions = {
+  bindings: {
+    onSearch: '&'
+  },
+  controller: ArtObjectsSearchComponent,
+  template
 };

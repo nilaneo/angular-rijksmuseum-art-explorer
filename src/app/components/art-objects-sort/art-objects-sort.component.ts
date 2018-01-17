@@ -3,12 +3,16 @@ import template from './art-objects-sort.component.html';
 import './art-objects-sort.component.css';
 
 export class ArtObjectsSortComponent {
+  sortOrder;
+  onSortOrderChange;
+
   static get $inject() {
     return [sortOrdersToken];
   }
-  constructor(sortOrders) {
-    this.sortOrders = sortOrders;
-  }
+  constructor(
+    public sortOrders
+  ) {}
+
   changeSortOrder() {
     this.onSortOrderChange({
       $event: {
@@ -18,13 +22,12 @@ export class ArtObjectsSortComponent {
   }
 }
 
-export const artObjectsSortDeclaration = {
-  rmArtObjectsSort: {
-    bindings: {
-      sortOrder: '<',
-      onSortOrderChange: '&'
-    },
-    controller: ArtObjectsSortComponent,
-    template
-  }
+export const artObjectsSortComponentName = 'rmArtObjectsSort';
+export const artObjectsSortComponentOptions = {
+  bindings: {
+    sortOrder: '<',
+    onSortOrderChange: '&'
+  },
+  controller: ArtObjectsSortComponent,
+  template
 };

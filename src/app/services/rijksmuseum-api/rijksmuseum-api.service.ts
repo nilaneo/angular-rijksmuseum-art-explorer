@@ -4,10 +4,11 @@ export class RijksmuseumApiService {
   static get $inject() {
     return ['$http', defaultSortOrderToken];
   }
-  constructor($http, defaultSortOrder) {
-    this.$http = $http;
-    this.defaultSortOrder = defaultSortOrder;
-  }
+
+  constructor(
+    private $http,
+    private defaultSortOrder
+  ) {}
 
   getList({
     searchQuery = '',

@@ -2,9 +2,13 @@ import template from './pagination.component.html';
 import './pagination.component.css';
 
 export class PaginationComponent {
-  constructor() {
-    this.pageSizeOptions = [5, 10, 15, 20, 25];
-  }
+  newPageSize;
+  pageSizeOptions = [5, 10, 15, 20, 25];
+  currentPage;
+  totalPages;
+  pageSize;
+  onPageChange;
+  onPageSizeChange;
 
   $onInit() {
     this.newPageSize = this.pageSize;
@@ -35,16 +39,15 @@ export class PaginationComponent {
   }
 }
 
-export const paginationDeclaration = {
-  rmPagination: {
-    bindings: {
-      currentPage: '<',
-      totalPages: '<',
-      pageSize: '<',
-      onPageChange: '&',
-      onPageSizeChange: '&'
-    },
-    controller: PaginationComponent,
-    template
-  }
+export const paginationComponentName = 'rmPagination';
+export const paginationComponentOptions = {
+  bindings: {
+    currentPage: '<',
+    totalPages: '<',
+    pageSize: '<',
+    onPageChange: '&',
+    onPageSizeChange: '&'
+  },
+  controller: PaginationComponent,
+  template
 };

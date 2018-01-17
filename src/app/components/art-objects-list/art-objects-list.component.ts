@@ -3,15 +3,22 @@ import template from './art-objects-list.component.html';
 import './art-objects-list.component.css';
 
 export class ArtObjectsListComponent {
+  artObjects;
+  selectedArtObjectNumber;
+  searchQuery;
+  sortOrder;
+  page;
+  pageSize;
+  onSelect;
+  onListLoad;
+
   static get $inject () {
     return [rijksmuseumApiServiceToken];
   }
 
-  constructor(rijksmuseumApiService) {
-    this.artObjects = null;
-    this.selectedArtObjectNumber = null;
-    this.rijksmuseumApiService = rijksmuseumApiService;
-  }
+  constructor(
+    private rijksmuseumApiService
+  ) {}
 
   $onChanges(changes) {
     if (
@@ -54,17 +61,16 @@ export class ArtObjectsListComponent {
   }
 }
 
-export const artObjectsListDeclaration = {
-  rmArtObjectsList: {
-    bindings: {
-      searchQuery: '<',
-      sortOrder: '<',
-      page: '<',
-      pageSize: '<',
-      onSelect: '&',
-      onListLoad: '&'
-    },
-    controller: ArtObjectsListComponent,
-    template
-  }
+export const artObjectsListComponentName = 'rmArtObjectsList';
+export const artObjectsListComponentOptions = {
+  bindings: {
+    searchQuery: '<',
+    sortOrder: '<',
+    page: '<',
+    pageSize: '<',
+    onSelect: '&',
+    onListLoad: '&'
+  },
+  controller: ArtObjectsListComponent,
+  template
 };

@@ -3,6 +3,13 @@ import template from './root.component.html';
 import './root.component.css';
 
 export class RootComponent {
+  selectedArtObjectNumber;
+  searchQuery;
+  sortOrder;
+  currentPage;
+  pageSize;
+  totalPages;
+
   static get $inject() {
     return [defaultSortOrderToken];
   }
@@ -42,10 +49,9 @@ export class RootComponent {
   }
 }
 
-export const rootComponentDeclaration = {
-  rmRoot: {
-    bindings: {},
-    controller: RootComponent,
-    template
-  }
+export const rootComponentName = 'rmRoot';
+export const rootComponentOptions = {
+  bindings: {},
+  controller: RootComponent,
+  template
 };
