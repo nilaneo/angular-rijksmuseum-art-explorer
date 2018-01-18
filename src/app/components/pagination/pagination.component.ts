@@ -1,14 +1,22 @@
 import template from './pagination.component.html';
 import './pagination.component.css';
 
+export interface OnPageChangeEvent {
+  newCurrentPage: number
+}
+
+export interface OnPageSizeChangeEvent {
+  newPageSize: number
+}
+
 export class PaginationComponent {
-  newPageSize;
+  newPageSize: number;
   pageSizeOptions = [5, 10, 15, 20, 25];
-  currentPage;
-  totalPages;
-  pageSize;
-  onPageChange;
-  onPageSizeChange;
+  currentPage: number;
+  totalPages: number;
+  pageSize: number;
+  onPageChange: (data: { $event: OnPageChangeEvent }) => void;
+  onPageSizeChange: (data: { $event: OnPageSizeChangeEvent }) => void;
 
   $onInit() {
     this.newPageSize = this.pageSize;
@@ -22,7 +30,7 @@ export class PaginationComponent {
     this.goToPage(this.currentPage + 1);
   }
 
-  goToPage(newCurrentPage) {
+  goToPage(newCurrentPage: number) {
     this.onPageChange({
       $event: {
         newCurrentPage

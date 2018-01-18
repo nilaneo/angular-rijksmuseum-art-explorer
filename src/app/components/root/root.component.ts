@@ -1,51 +1,51 @@
-import { defaultSortOrderToken } from '../../values/sort-orders.value';
+import { defaultSortOrderToken, SortOrder } from '../../values/sort-orders.value';
+import { OnSearchEvent } from '../art-objects-search/art-objects-search.component';
+import { OnSortOrderChangeEvent } from '../art-objects-sort/art-objects-sort.component';
+import { OnListLoadEvent, OnSelectEvent } from '../art-objects-list/art-objects-list.component';
+import { OnPageChangeEvent, OnPageSizeChangeEvent } from '../pagination/pagination.component';
+
 import template from './root.component.html';
 import './root.component.css';
 
 export class RootComponent {
-  selectedArtObjectNumber;
-  searchQuery;
-  sortOrder;
-  currentPage;
-  pageSize;
-  totalPages;
+  selectedArtObjectNumber: string;
+  searchQuery = '';
+  sortOrder: SortOrder;
+  currentPage = 1;
+  pageSize = 10;
+  totalPages: number;
 
   static get $inject() {
     return [defaultSortOrderToken];
   }
-  constructor(defaultSortOrder) {
-    this.selectedArtObjectNumber = null;
-    this.searchQuery = '';
+  constructor(defaultSortOrder: SortOrder) {
     this.sortOrder = defaultSortOrder;
-    this.currentPage = 1;
-    this.pageSize = 10;
-    this.totalPages = null;
   }
 
-  onSearch($event) {
+  onSearch($event: OnSearchEvent) {
     this.searchQuery = $event.searchQuery;
     this.currentPage = 1;
   }
 
-  onSortOrderChange($event) {
+  onSortOrderChange($event: OnSortOrderChangeEvent) {
     this.sortOrder = $event.newSortOrder;
     this.currentPage = 1;
   }
 
-  onSelect($event) {
+  onSelect($event: OnSelectEvent) {
     this.selectedArtObjectNumber = $event.objectNumber;
   }
 
-  onPageChange($event) {
+  onPageChange($event: OnPageChangeEvent) {
     this.currentPage = $event.newCurrentPage;
   }
 
-  onPageSizeChange($event) {
+  onPageSizeChange($event: OnPageSizeChangeEvent) {
     this.pageSize = $event.newPageSize;
   }
 
-  onListLoad($event) {
-    this.totalPages = Math.ceil($event.data.count / this.pageSize);
+  onListLoad($event: OnListLoadEvent) {
+    this.totalPages = Math.ceil($event.artObjectsListResponseData.count / this.pageSize);
   }
 }
 

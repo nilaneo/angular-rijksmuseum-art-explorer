@@ -1,26 +1,37 @@
-import { rijksmuseumApiServiceToken } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
+import { IOnChanges, IOnChangesObject } from 'angular';
+import { rijksmuseumApiServiceToken, RijksmuseumApiService, ArtObject, ArtObjectsListResponseData } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
+import { SortOrder } from '../../values/sort-orders.value';
+
 import template from './art-objects-list.component.html';
 import './art-objects-list.component.css';
 
-export class ArtObjectsListComponent {
-  artObjects;
-  selectedArtObjectNumber;
-  searchQuery;
-  sortOrder;
-  page;
-  pageSize;
-  onSelect;
-  onListLoad;
+export interface OnSelectEvent {
+  objectNumber: string
+}
+
+export interface OnListLoadEvent {
+  artObjectsListResponseData: ArtObjectsListResponseData
+}
+
+export class ArtObjectsListComponent implements IOnChanges {
+  artObjects: Array<ArtObject>;
+  selectedArtObjectNumber: string;
+  searchQuery: string;
+  sortOrder: SortOrder;
+  page: number;
+  pageSize: number;
+  onSelect: (data: { $event: OnSelectEvent}) => void;
+  onListLoad: (data: { $event: OnListLoadEvent}) => void;
 
   static get $inject () {
     return [rijksmuseumApiServiceToken];
   }
 
   constructor(
-    private rijksmuseumApiService
+    private rijksmuseumApiService: RijksmuseumApiService
   ) {}
 
-  $onChanges(changes) {
+  $onChanges(changes: IOnChangesObject) {
     if (
       'searchQuery' in changes ||
       'sortOrder' in changes ||
@@ -43,20 +54,22 @@ export class ArtObjectsListComponent {
         this.artObjects = data.artObjects;
         this.onListLoad({
           $event: {
-            data
+            artObjectsListResponseData: data
           }
         });
       });
   }
 
-  selectArtObject(artObject) {
+  selectArtObject(artObject: ArtObject) {
     this.selectedArtObjectNumber = artObject.objectNumber;
     this.onSelect({
-      $event: artObject
+      $event: {
+        objectNumber: this.selectedArtObjectNumber
+      }
     });
   }
 
-  isSelected(artObject) {
+  isSelected(artObject: ArtObject) {
     return artObject.objectNumber === this.selectedArtObjectNumber;
   }
 }

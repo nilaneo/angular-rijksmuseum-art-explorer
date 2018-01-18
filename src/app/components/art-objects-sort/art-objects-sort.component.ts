@@ -1,17 +1,15 @@
-import { sortOrdersToken } from '../../values/sort-orders.value';
+import { SortOrder } from '../../values/sort-orders.value';
 import template from './art-objects-sort.component.html';
 import './art-objects-sort.component.css';
 
-export class ArtObjectsSortComponent {
-  sortOrder;
-  onSortOrderChange;
+export interface OnSortOrderChangeEvent {
+  newSortOrder: SortOrder
+}
 
-  static get $inject() {
-    return [sortOrdersToken];
-  }
-  constructor(
-    public sortOrders
-  ) {}
+export class ArtObjectsSortComponent {
+  sortOrders = SortOrder;
+  sortOrder: SortOrder;
+  onSortOrderChange: (data: { $event: OnSortOrderChangeEvent }) => void;
 
   changeSortOrder() {
     this.onSortOrderChange({

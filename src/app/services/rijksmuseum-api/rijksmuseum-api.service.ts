@@ -1,4 +1,27 @@
-import { defaultSortOrderToken } from '../../values/sort-orders.value';
+import { IHttpService } from 'angular';
+import { defaultSortOrderToken, SortOrder } from '../../values/sort-orders.value';
+
+export interface ArtObject {
+  objectNumber: string
+  title: string
+}
+
+export interface ArtObjectsListResponseData {
+  artObjects: Array<ArtObject>
+  count: number
+}
+
+export interface ArtObjectDetails {
+  longTitle: string
+  description: string
+  webImage: {
+    url: string
+  }
+}
+
+interface ArtObjectDetailsResponseData {
+  artObject: ArtObjectDetails
+}
 
 export class RijksmuseumApiService {
   static get $inject() {
@@ -6,8 +29,8 @@ export class RijksmuseumApiService {
   }
 
   constructor(
-    private $http,
-    private defaultSortOrder
+    private $http: IHttpService,
+    private defaultSortOrder: SortOrder
   ) {}
 
   getList({
@@ -17,7 +40,7 @@ export class RijksmuseumApiService {
     pageSize = 10
   } = {}) {
     return this.$http
-      .get('https://www.rijksmuseum.nl/api/en/collection', {
+      .get<ArtObjectsListResponseData>('https://www.rijksmuseum.nl/api/en/collection', {
         params: {
           format: 'json',
           key: '3tYxhQmI',
@@ -30,9 +53,9 @@ export class RijksmuseumApiService {
       .then((response) => response.data);
   }
 
-  getDetails(objectNumber) {
+  getDetails(objectNumber: string) {
     return this.$http
-      .get(`https://www.rijksmuseum.nl/api/en/collection/${objectNumber}`, {
+      .get<ArtObjectDetailsResponseData>(`https://www.rijksmuseum.nl/api/en/collection/${objectNumber}`, {
         params: {
           format: 'json',
           key: '3tYxhQmI'

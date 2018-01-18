@@ -1,9 +1,13 @@
 import template from './art-objects-search.component.html';
 import './art-objects-search.component.css';
 
+export interface OnSearchEvent {
+  searchQuery: string
+}
+
 export class ArtObjectsSearchComponent {
   searchQuery = '';
-  onSearch;
+  onSearch: (data: { $event: OnSearchEvent}) => void;
 
   onSubmit() {
     this.onSearch({
