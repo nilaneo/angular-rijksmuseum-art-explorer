@@ -10,24 +10,30 @@ export interface OnPageSizeChangeEvent {
 }
 
 export class PaginationComponent {
-  newPageSize: number;
+  newPageSize = 1;
   pageSizeOptions = [5, 10, 15, 20, 25];
-  currentPage: number;
-  totalPages: number;
-  pageSize: number;
+  currentPage: number | undefined;
+  totalPages: number | undefined;
+  pageSize: number | undefined;
   onPageChange: (data: { $event: OnPageChangeEvent }) => void;
   onPageSizeChange: (data: { $event: OnPageSizeChangeEvent }) => void;
 
   $onInit() {
-    this.newPageSize = this.pageSize;
+    if (this.pageSize !== undefined) {
+      this.newPageSize = this.pageSize;
+    }
   }
 
   onClickPrevious() {
-    this.goToPage(this.currentPage - 1);
+    if (this.currentPage !== undefined) {
+      this.goToPage(this.currentPage - 1);
+    }
   }
 
   onClickNext() {
-    this.goToPage(this.currentPage + 1);
+    if (this.currentPage !== undefined) {
+      this.goToPage(this.currentPage + 1);
+    }
   }
 
   goToPage(newCurrentPage: number) {

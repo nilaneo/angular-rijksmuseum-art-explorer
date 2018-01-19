@@ -8,17 +8,17 @@ import template from './root.component.html';
 import './root.component.css';
 
 export class RootComponent {
-  selectedArtObjectNumber: string;
+  selectedArtObjectNumber: string | undefined;
   searchQuery = '';
   sortOrder: SortOrder;
   currentPage = 1;
   pageSize = 10;
-  totalPages: number;
+  totalPages: number | undefined;
 
   static get $inject() {
     return [defaultSortOrderToken];
   }
-  constructor(defaultSortOrder: SortOrder) {
+  constructor(private defaultSortOrder: SortOrder) {
     this.sortOrder = defaultSortOrder;
   }
 
@@ -28,7 +28,11 @@ export class RootComponent {
   }
 
   onSortOrderChange($event: OnSortOrderChangeEvent) {
-    this.sortOrder = $event.newSortOrder;
+    if ($event.newSortOrder === undefined) {
+      this.sortOrder = this.defaultSortOrder;
+    } else {
+      this.sortOrder = $event.newSortOrder;
+    }
     this.currentPage = 1;
   }
 

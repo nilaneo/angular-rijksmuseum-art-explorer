@@ -3,12 +3,12 @@ import template from './art-objects-sort.component.html';
 import './art-objects-sort.component.css';
 
 export interface OnSortOrderChangeEvent {
-  newSortOrder: SortOrder
+  newSortOrder: SortOrder | undefined
 }
 
 export class ArtObjectsSortComponent {
   sortOrders = SortOrder;
-  sortOrder: SortOrder;
+  sortOrder: SortOrder | undefined;
   onSortOrderChange: (data: { $event: OnSortOrderChangeEvent }) => void;
 
   changeSortOrder() {

@@ -14,13 +14,13 @@ export interface OnListLoadEvent {
 }
 
 export class ArtObjectsListComponent implements IOnChanges {
-  artObjects: Array<ArtObject>;
-  selectedArtObjectNumber: string;
-  searchQuery: string;
-  sortOrder: SortOrder;
-  page: number;
-  pageSize: number;
-  onSelect: (data: { $event: OnSelectEvent}) => void;
+  artObjects: Array<ArtObject> | undefined;
+  selectedArtObjectNumber: string | undefined;
+  searchQuery: string | undefined;
+  sortOrder: SortOrder | undefined;
+  page: number | undefined;
+  pageSize: number | undefined;
+  onSelect: (data: { $event: OnSelectEvent}) => void ;
   onListLoad: (data: { $event: OnListLoadEvent}) => void;
 
   static get $inject () {

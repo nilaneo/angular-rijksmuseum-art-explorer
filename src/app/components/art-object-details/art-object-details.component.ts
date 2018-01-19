@@ -5,8 +5,8 @@ import template from './art-object-details.component.html';
 import './art-object-details.component.css';
 
 export class ArtObjectDetailsComponent implements IOnChanges {
-  artObjectDetails: ArtObjectDetails;
-  objectNumber: string;
+  artObjectDetails: ArtObjectDetails | undefined;
+  objectNumber: string | undefined;
 
   static get $inject () {
     return [rijksmuseumApiServiceToken];
@@ -18,7 +18,7 @@ export class ArtObjectDetailsComponent implements IOnChanges {
 
   $onChanges(changes: IOnChangesObject) {
     if ('objectNumber' in changes) {
-      this.artObjectDetails = null;
+      this.artObjectDetails = undefined;
       this.loadDetails();
     }
   }

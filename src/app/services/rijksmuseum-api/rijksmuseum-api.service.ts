@@ -19,8 +19,15 @@ export interface ArtObjectDetails {
   }
 }
 
-interface ArtObjectDetailsResponseData {
+export interface ArtObjectDetailsResponseData {
   artObject: ArtObjectDetails
+}
+
+export interface GetListParams {
+  searchQuery?: string | undefined
+  sortOrder?: SortOrder | undefined
+  page?: number | undefined
+  pageSize?: number | undefined
 }
 
 export class RijksmuseumApiService {
@@ -38,7 +45,7 @@ export class RijksmuseumApiService {
     sortOrder = this.defaultSortOrder,
     page = 1,
     pageSize = 10
-  } = {}) {
+  }: GetListParams = {}) {
     return this.$http
       .get<ArtObjectsListResponseData>('https://www.rijksmuseum.nl/api/en/collection', {
         params: {
