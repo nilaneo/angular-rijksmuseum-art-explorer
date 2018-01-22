@@ -1,54 +1,54 @@
 import template from './pagination.component.html';
 import './pagination.component.css';
 
-export interface OnPageChangeEvent {
-  newCurrentPage: number
+export interface IOnPageChangeEvent {
+  newCurrentPage: number;
 }
 
-export interface OnPageSizeChangeEvent {
-  newPageSize: number
+export interface IOnPageSizeChangeEvent {
+  newPageSize: number;
 }
 
 export class PaginationComponent {
-  newPageSize = 1;
-  pageSizeOptions = [5, 10, 15, 20, 25];
-  currentPage: number | undefined;
-  totalPages: number | undefined;
-  pageSize: number | undefined;
-  onPageChange: (data: { $event: OnPageChangeEvent }) => void;
-  onPageSizeChange: (data: { $event: OnPageSizeChangeEvent }) => void;
+  public newPageSize = 1;
+  public pageSizeOptions = [5, 10, 15, 20, 25];
+  public currentPage: number | undefined;
+  public totalPages: number | undefined;
+  public pageSize: number | undefined;
+  public onPageChange: (data: { $event: IOnPageChangeEvent }) => void;
+  public onPageSizeChange: (data: { $event: IOnPageSizeChangeEvent }) => void;
 
-  $onInit() {
+  public $onInit() {
     if (this.pageSize !== undefined) {
       this.newPageSize = this.pageSize;
     }
   }
 
-  onClickPrevious() {
+  public onClickPrevious() {
     if (this.currentPage !== undefined) {
       this.goToPage(this.currentPage - 1);
     }
   }
 
-  onClickNext() {
+  public onClickNext() {
     if (this.currentPage !== undefined) {
       this.goToPage(this.currentPage + 1);
     }
   }
 
-  goToPage(newCurrentPage: number) {
+  public goToPage(newCurrentPage: number) {
     this.onPageChange({
       $event: {
-        newCurrentPage
-      }
+        newCurrentPage,
+      },
     });
   }
 
-  onChoosePageSize() {
+  public onChoosePageSize() {
     this.onPageSizeChange({
       $event: {
-        newPageSize: this.newPageSize
-      }
+        newPageSize: this.newPageSize,
+      },
     });
   }
 }
@@ -60,8 +60,8 @@ export const paginationComponentOptions = {
     totalPages: '<',
     pageSize: '<',
     onPageChange: '&',
-    onPageSizeChange: '&'
+    onPageSizeChange: '&',
   },
   controller: PaginationComponent,
-  template
+  template,
 };

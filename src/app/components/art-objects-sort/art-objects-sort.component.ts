@@ -2,20 +2,20 @@ import { SortOrder } from '../../values/sort-orders.value';
 import template from './art-objects-sort.component.html';
 import './art-objects-sort.component.css';
 
-export interface OnSortOrderChangeEvent {
-  newSortOrder: SortOrder | undefined
+export interface IOnSortOrderChangeEvent {
+  newSortOrder: SortOrder | undefined;
 }
 
 export class ArtObjectsSortComponent {
-  sortOrders = SortOrder;
-  sortOrder: SortOrder | undefined;
-  onSortOrderChange: (data: { $event: OnSortOrderChangeEvent }) => void;
+  public sortOrders = SortOrder;
+  public sortOrder: SortOrder | undefined;
+  public onSortOrderChange: (data: { $event: IOnSortOrderChangeEvent }) => void;
 
-  changeSortOrder() {
+  public changeSortOrder() {
     this.onSortOrderChange({
       $event: {
-        newSortOrder: this.sortOrder
-      }
+        newSortOrder: this.sortOrder,
+      },
     });
   }
 }
@@ -24,8 +24,8 @@ export const artObjectsSortComponentName = 'rmArtObjectsSort';
 export const artObjectsSortComponentOptions = {
   bindings: {
     sortOrder: '<',
-    onSortOrderChange: '&'
+    onSortOrderChange: '&',
   },
   controller: ArtObjectsSortComponent,
-  template
+  template,
 };

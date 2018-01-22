@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server",
+    "lint": "tslint --project . --config ./tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dmytro Yarmak <dmytroyarmak@gmail.com>",
@@ -17,6 +18,7 @@
     "raw-loader": "^0.5.1",
     "style-loader": "^0.19.1",
     "ts-loader": "^3.2.0",
+    "tslint": "^5.9.1",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"

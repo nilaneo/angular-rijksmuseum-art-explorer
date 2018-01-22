@@ -1,33 +1,33 @@
 import { IHttpService } from 'angular';
 import { defaultSortOrderToken, SortOrder } from '../../values/sort-orders.value';
 
-export interface ArtObject {
-  objectNumber: string
-  title: string
+export interface IArtObject {
+  objectNumber: string;
+  title: string;
 }
 
-export interface ArtObjectsListResponseData {
-  artObjects: Array<ArtObject>
-  count: number
+export interface IArtObjectsListResponseData {
+  artObjects: IArtObject[];
+  count: number;
 }
 
-export interface ArtObjectDetails {
-  longTitle: string
-  description: string
+export interface IArtObjectDetails {
+  longTitle: string;
+  description: string;
   webImage: {
-    url: string
-  }
+    url: string;
+  };
 }
 
-export interface ArtObjectDetailsResponseData {
-  artObject: ArtObjectDetails
+export interface IArtObjectDetailsResponseData {
+  artObject: IArtObjectDetails;
 }
 
-export interface GetListParams {
-  searchQuery?: string | undefined
-  sortOrder?: SortOrder | undefined
-  page?: number | undefined
-  pageSize?: number | undefined
+export interface IGetListParams {
+  searchQuery?: string | undefined;
+  sortOrder?: SortOrder | undefined;
+  page?: number | undefined;
+  pageSize?: number | undefined;
 }
 
 export class RijksmuseumApiService {
@@ -37,36 +37,36 @@ export class RijksmuseumApiService {
 
   constructor(
     private $http: IHttpService,
-    private defaultSortOrder: SortOrder
+    private defaultSortOrder: SortOrder,
   ) {}
 
-  getList({
+  public getList({
     searchQuery = '',
     sortOrder = this.defaultSortOrder,
     page = 1,
-    pageSize = 10
-  }: GetListParams = {}) {
+    pageSize = 10,
+  }: IGetListParams = {}) {
     return this.$http
-      .get<ArtObjectsListResponseData>('https://www.rijksmuseum.nl/api/en/collection', {
+      .get<IArtObjectsListResponseData>('https://www.rijksmuseum.nl/api/en/collection', {
         params: {
           format: 'json',
           key: '3tYxhQmI',
           q: searchQuery,
           s: sortOrder,
           ps: pageSize,
-          p: page
-        }
+          p: page,
+        },
       })
       .then((response) => response.data);
   }
 
-  getDetails(objectNumber: string) {
+  public getDetails(objectNumber: string) {
     return this.$http
-      .get<ArtObjectDetailsResponseData>(`https://www.rijksmuseum.nl/api/en/collection/${objectNumber}`, {
+      .get<IArtObjectDetailsResponseData>(`https://www.rijksmuseum.nl/api/en/collection/${objectNumber}`, {
         params: {
           format: 'json',
-          key: '3tYxhQmI'
-        }
+          key: '3tYxhQmI',
+        },
       })
       .then((response) => response.data.artObject);
   }
@@ -74,5 +74,5 @@ export class RijksmuseumApiService {
 
 export const rijksmuseumApiServiceToken = 'rijksmuseumApiService';
 export const rijksmuseumApiServiceDeclaration = {
-  [rijksmuseumApiServiceToken]: RijksmuseumApiService
+  [rijksmuseumApiServiceToken]: RijksmuseumApiService,
 };

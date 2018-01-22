@@ -1,29 +1,33 @@
 import { IOnChanges, IOnChangesObject } from 'angular';
-import { rijksmuseumApiServiceToken, ArtObjectDetails, RijksmuseumApiService } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
+import {
+  rijksmuseumApiServiceToken,
+  IArtObjectDetails,
+  RijksmuseumApiService,
+} from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 
 import template from './art-object-details.component.html';
 import './art-object-details.component.css';
 
 export class ArtObjectDetailsComponent implements IOnChanges {
-  artObjectDetails: ArtObjectDetails | undefined;
-  objectNumber: string | undefined;
+  public artObjectDetails: IArtObjectDetails | undefined;
+  public objectNumber: string | undefined;
 
-  static get $inject () {
+  static get $inject() {
     return [rijksmuseumApiServiceToken];
   }
 
   constructor(
-    private rijksmuseumApiService: RijksmuseumApiService
+    private rijksmuseumApiService: RijksmuseumApiService,
   ) {}
 
-  $onChanges(changes: IOnChangesObject) {
+  public $onChanges(changes: IOnChangesObject) {
     if ('objectNumber' in changes) {
       this.artObjectDetails = undefined;
       this.loadDetails();
     }
   }
 
-  loadDetails() {
+  public loadDetails() {
     if (this.objectNumber) {
       this.rijksmuseumApiService
         .getDetails(this.objectNumber)
@@ -37,8 +41,8 @@ export class ArtObjectDetailsComponent implements IOnChanges {
 export const artObjectDetailsComponentName = 'rmArtObjectDetails';
 export const artObjectDetailsComponentOptions = {
   bindings: {
-    objectNumber: '<'
+    objectNumber: '<',
   },
   controller: ArtObjectDetailsComponent,
-  template
+  template,
 };

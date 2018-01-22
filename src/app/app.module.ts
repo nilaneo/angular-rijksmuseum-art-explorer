@@ -4,12 +4,35 @@ import { rijksmuseumApiServiceDeclaration } from './services/rijksmuseum-api/rij
 
 import { sortOrdersValueDeclaration } from './values/sort-orders.value';
 
-import { rootComponentName, rootComponentOptions } from './components/root/root.component';
-import { artObjectsListComponentName, artObjectsListComponentOptions } from './components/art-objects-list/art-objects-list.component';
-import { artObjectDetailsComponentName, artObjectDetailsComponentOptions } from './components/art-object-details/art-object-details.component';
-import { artObjectsSearchComponentName, artObjectsSearchComponentOptions } from './components/art-objects-search/art-objects-search.component';
-import { artObjectsSortComponentName, artObjectsSortComponentOptions } from './components/art-objects-sort/art-objects-sort.component';
-import { paginationComponentName, paginationComponentOptions } from './components/pagination/pagination.component';
+import {
+  rootComponentName,
+  rootComponentOptions,
+} from './components/root/root.component';
+
+import {
+  artObjectsListComponentName,
+  artObjectsListComponentOptions,
+} from './components/art-objects-list/art-objects-list.component';
+
+import {
+  artObjectDetailsComponentName,
+  artObjectDetailsComponentOptions,
+} from './components/art-object-details/art-object-details.component';
+
+import {
+  artObjectsSearchComponentName,
+  artObjectsSearchComponentOptions,
+} from './components/art-objects-search/art-objects-search.component';
+
+import {
+  artObjectsSortComponentName,
+  artObjectsSortComponentOptions,
+} from './components/art-objects-sort/art-objects-sort.component';
+
+import {
+  paginationComponentName,
+  paginationComponentOptions,
+} from './components/pagination/pagination.component';
 
 const appModuleName = 'app';
 const appModule = angular.module(appModuleName, []);

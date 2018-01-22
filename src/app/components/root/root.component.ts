@@ -1,19 +1,19 @@
 import { defaultSortOrderToken, SortOrder } from '../../values/sort-orders.value';
-import { OnSearchEvent } from '../art-objects-search/art-objects-search.component';
-import { OnSortOrderChangeEvent } from '../art-objects-sort/art-objects-sort.component';
-import { OnListLoadEvent, OnSelectEvent } from '../art-objects-list/art-objects-list.component';
-import { OnPageChangeEvent, OnPageSizeChangeEvent } from '../pagination/pagination.component';
+import { IOnSearchEvent } from '../art-objects-search/art-objects-search.component';
+import { IOnSortOrderChangeEvent } from '../art-objects-sort/art-objects-sort.component';
+import { IOnListLoadEvent, IOnSelectEvent } from '../art-objects-list/art-objects-list.component';
+import { IOnPageChangeEvent, IOnPageSizeChangeEvent } from '../pagination/pagination.component';
 
 import template from './root.component.html';
 import './root.component.css';
 
 export class RootComponent {
-  selectedArtObjectNumber: string | undefined;
-  searchQuery = '';
-  sortOrder: SortOrder;
-  currentPage = 1;
-  pageSize = 10;
-  totalPages: number | undefined;
+  public selectedArtObjectNumber: string | undefined;
+  public searchQuery = '';
+  public sortOrder: SortOrder;
+  public currentPage = 1;
+  public pageSize = 10;
+  public totalPages: number | undefined;
 
   static get $inject() {
     return [defaultSortOrderToken];
@@ -22,12 +22,12 @@ export class RootComponent {
     this.sortOrder = defaultSortOrder;
   }
 
-  onSearch($event: OnSearchEvent) {
+  public onSearch($event: IOnSearchEvent) {
     this.searchQuery = $event.searchQuery;
     this.currentPage = 1;
   }
 
-  onSortOrderChange($event: OnSortOrderChangeEvent) {
+  public onSortOrderChange($event: IOnSortOrderChangeEvent) {
     if ($event.newSortOrder === undefined) {
       this.sortOrder = this.defaultSortOrder;
     } else {
@@ -36,19 +36,19 @@ export class RootComponent {
     this.currentPage = 1;
   }
 
-  onSelect($event: OnSelectEvent) {
+  public onSelect($event: IOnSelectEvent) {
     this.selectedArtObjectNumber = $event.objectNumber;
   }
 
-  onPageChange($event: OnPageChangeEvent) {
+  public onPageChange($event: IOnPageChangeEvent) {
     this.currentPage = $event.newCurrentPage;
   }
 
-  onPageSizeChange($event: OnPageSizeChangeEvent) {
+  public onPageSizeChange($event: IOnPageSizeChangeEvent) {
     this.pageSize = $event.newPageSize;
   }
 
-  onListLoad($event: OnListLoadEvent) {
+  public onListLoad($event: IOnListLoadEvent) {
     this.totalPages = Math.ceil($event.artObjectsListResponseData.count / this.pageSize);
   }
 }
@@ -57,5 +57,5 @@ export const rootComponentName = 'rmRoot';
 export const rootComponentOptions = {
   bindings: {},
   controller: RootComponent,
-  template
+  template,
 };
