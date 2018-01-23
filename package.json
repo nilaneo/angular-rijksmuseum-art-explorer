@@ -7,16 +7,20 @@
     "build": "webpack",
     "start": "webpack-dev-server",
     "lint": "tslint --project . --config ./tsconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "unit": "jest",
+    "test": "npm run lint && npm run unit"
   },
   "author": "Dmytro Yarmak <dmytroyarmak@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/angular": "^1.6.40",
+    "@types/jest": "^22.0.1",
     "css-loader": "^0.28.7",
     "html-webpack-plugin": "^2.30.1",
+    "jest": "^22.1.4",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.19.1",
+    "ts-jest": "^22.0.1",
     "ts-loader": "^3.2.0",
     "tslint": "^5.9.1",
     "typescript": "^2.6.2",
@@ -25,5 +29,16 @@
   },
   "dependencies": {
     "angular": "^1.6.8"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "\\.spec\\.ts$",
+    "moduleFileExtensions": ["ts", "js", "node"],
+    "moduleNameMapper": {
+      "\\.css$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.html$": "<rootDir>/__mocks__/htmlMock.js"
+    }
   }
 }
