@@ -36,18 +36,18 @@ export class PaginationComponent {
     }
   }
 
-  public goToPage(newCurrentPage: number) {
-    this.onPageChange({
-      $event: {
-        newCurrentPage,
-      },
-    });
-  }
-
   public onChoosePageSize() {
     this.onPageSizeChange({
       $event: {
         newPageSize: this.newPageSize,
+      },
+    });
+  }
+
+  private goToPage(newCurrentPage: number) {
+    this.onPageChange({
+      $event: {
+        newCurrentPage,
       },
     });
   }
