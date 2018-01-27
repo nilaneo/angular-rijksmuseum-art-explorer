@@ -27,7 +27,7 @@ export class ArtObjectDetailsComponent implements IOnChanges {
     }
   }
 
-  public loadDetails() {
+  private loadDetails() {
     if (this.objectNumber) {
       this.rijksmuseumApiService
         .getDetails(this.objectNumber)
