@@ -1,5 +1,5 @@
 import { ArtObjectDetailsComponent } from './art-object-details.component';
-import { IArtObjectDetails } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
+import { IArtObjectDetails, rijksmuseumApiServiceToken } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 
 describe('artObjectDetailsComponent', () => {
   let rijksmuseumApiService: { getDetails: jest.Mock };
@@ -20,6 +20,12 @@ describe('artObjectDetailsComponent', () => {
     rijksmuseumApiService.getDetails.mockReturnValue(getDetailsDefer.promise);
 
     artObjectDetailsComponent = new ArtObjectDetailsComponent(rijksmuseumApiService as any);
+  });
+
+  describe('$inject', () => {
+    it('should return list of dependencies', () => {
+      expect(ArtObjectDetailsComponent.$inject).toEqual([rijksmuseumApiServiceToken]);
+    });
   });
 
   describe('$onChanges', () => {
@@ -46,7 +52,7 @@ describe('artObjectDetailsComponent', () => {
       });
     });
 
-    describe('when objectNumber has been changed', () => {
+    describe('when objectNumber has been changed to new object number', () => {
       beforeEach(() => {
         const changes = {
           objectNumber: {
@@ -84,6 +90,29 @@ describe('artObjectDetailsComponent', () => {
         it('should store new details', () => {
           expect(artObjectDetailsComponent.artObjectDetails).toBe(newArtObjectDetails);
         });
+      });
+    });
+
+    describe('when objectNumber has been changed to undefined', () => {
+      beforeEach(() => {
+        const changes = {
+          objectNumber: {
+            isFirstChange: () => false,
+            previousValue: 'abc567',
+            currentValue: undefined,
+          },
+        };
+        artObjectDetailsComponent.objectNumber = undefined;
+
+        artObjectDetailsComponent.$onChanges(changes);
+      });
+
+      it('should unset old details', () => {
+        expect(artObjectDetailsComponent.artObjectDetails).toBeUndefined();
+      });
+
+      it('should not load details', () => {
+        expect(rijksmuseumApiService.getDetails).not.toHaveBeenCalled();
       });
     });
   });
