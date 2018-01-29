@@ -47,7 +47,20 @@ export class ArtObjectsListComponent implements IOnChanges {
     }
   }
 
-  public loadList() {
+  public selectArtObject(artObject: IArtObject) {
+    this.selectedArtObjectNumber = artObject.objectNumber;
+    this.onSelect({
+      $event: {
+        objectNumber: this.selectedArtObjectNumber,
+      },
+    });
+  }
+
+  public isSelected(artObject: IArtObject) {
+    return artObject.objectNumber === this.selectedArtObjectNumber;
+  }
+
+  private loadList() {
     this.rijksmuseumApiService
       .getList({
         searchQuery: this.searchQuery,
@@ -63,19 +76,6 @@ export class ArtObjectsListComponent implements IOnChanges {
           },
         });
       });
-  }
-
-  public selectArtObject(artObject: IArtObject) {
-    this.selectedArtObjectNumber = artObject.objectNumber;
-    this.onSelect({
-      $event: {
-        objectNumber: this.selectedArtObjectNumber,
-      },
-    });
-  }
-
-  public isSelected(artObject: IArtObject) {
-    return artObject.objectNumber === this.selectedArtObjectNumber;
   }
 }
 
