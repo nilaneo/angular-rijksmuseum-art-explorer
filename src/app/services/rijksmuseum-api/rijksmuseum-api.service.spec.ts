@@ -129,7 +129,7 @@ describe('rijksmuseumApiService', () => {
   });
 
   describe('getDetails', () => {
-    let getDetailsResult: Promise<IArtObjectDetails>;
+    let getDetailsResult: IPromise<IArtObjectDetails>;
 
     beforeEach(() => {
       getDetailsResult = rijksmuseumApiService.getDetails('abc123');
