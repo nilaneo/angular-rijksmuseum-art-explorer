@@ -1,3 +1,5 @@
+import { Component, Inject } from '@angular/core';
+
 import { defaultSortOrderToken, SortOrder } from '../../values/sort-orders.value';
 import { IOnSearchEvent } from '../art-objects-search/art-objects-search.component';
 import { IOnSortOrderChangeEvent } from '../art-objects-sort/art-objects-sort.component';
@@ -7,6 +9,10 @@ import { IOnPageChangeEvent, IOnPageSizeChangeEvent } from '../pagination/pagina
 import template from './root.component.html';
 import './root.component.css';
 
+@Component({
+  selector: 'rm-root',
+  template,
+})
 export class RootComponent {
   public selectedArtObjectNumber: string | undefined;
   public searchQuery = '';
@@ -15,10 +21,9 @@ export class RootComponent {
   public pageSize = 10;
   public totalPages: number | undefined;
 
-  static get $inject() {
-    return [defaultSortOrderToken];
-  }
-  constructor(private defaultSortOrder: SortOrder) {
+  constructor(
+    @Inject(defaultSortOrderToken) private defaultSortOrder: SortOrder,
+  ) {
     this.sortOrder = defaultSortOrder;
   }
 
@@ -52,10 +57,3 @@ export class RootComponent {
     this.totalPages = Math.ceil($event.artObjectsListResponseData.count / this.pageSize);
   }
 }
-
-export const rootComponentName = 'rmRoot';
-export const rootComponentOptions = {
-  bindings: {},
-  controller: RootComponent,
-  template,
-};

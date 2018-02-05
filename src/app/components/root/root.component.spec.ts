@@ -12,12 +12,6 @@ describe('rootComponent', () => {
     expect(rootComponent.sortOrder).toBe(SortOrder.ARTIST_ASC);
   });
 
-  describe('$inject', () => {
-    it('should return list of dependencies', () => {
-      expect(RootComponent.$inject).toEqual([defaultSortOrderToken]);
-    });
-  });
-
   describe('onSearch', () => {
     beforeEach(() => {
       rootComponent.currentPage = 42;
