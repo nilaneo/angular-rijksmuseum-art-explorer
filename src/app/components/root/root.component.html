@@ -3,32 +3,34 @@
 <div class="container">
   <div class="art-objects-list-wrapper">
     <rm-art-objects-search
-      on-search="$ctrl.onSearch($event)"
+      (search)="onSearch($event)"
     ></rm-art-objects-search>
 
     <rm-art-objects-sort
-      sort-order="$ctrl.sortOrder"
-      on-sort-order-change="$ctrl.onSortOrderChange($event)"
+      [sortOrder]="sortOrder"
+      (sortOrderChange)="onSortOrderChange($event)"
     ></rm-art-objects-sort>
 
     <rm-art-objects-list
-      search-query="$ctrl.searchQuery"
-      sort-order="$ctrl.sortOrder"
-      page="$ctrl.currentPage"
-      page-size="$ctrl.pageSize"
-      on-select="$ctrl.onSelect($event)"
-      on-list-load="$ctrl.onListLoad($event)"
+      [searchQuery]="searchQuery"
+      [sortOrder]="sortOrder"
+      [page]="currentPage"
+      [pageSize]="pageSize"
+      (select)="onSelect($event)"
+      (listLoad)="onListLoad($event)"
     ></rm-art-objects-list>
 
     <rm-pagination
-      current-page="$ctrl.currentPage"
-      total-pages="$ctrl.totalPages"
-      page-size="$ctrl.pageSize"
-      on-page-size-change="$ctrl.onPageSizeChange($event)"
-      on-page-change="$ctrl.onPageChange($event)"
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      [pageSize]="pageSize"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (pageChange)="onPageChange($event)"
     ></rm-pagination>
   </div>
   <div class="art-object-details-wrapper">
-    <rm-art-object-details object-number="$ctrl.selectedArtObjectNumber"></rm-art-object-details>
+    <rm-art-object-details
+      [objectNumber]="selectedArtObjectNumber"
+    ></rm-art-object-details>
   </div>
 </div>
