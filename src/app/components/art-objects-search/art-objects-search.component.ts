@@ -13,10 +13,10 @@ export interface IOnSearchEvent {
 })
 export class ArtObjectsSearchComponent {
   public searchQuery = '';
-  @Output() public onSearch = new EventEmitter<IOnSearchEvent>();
+  @Output() public search = new EventEmitter<IOnSearchEvent>();
 
   public onSubmit() {
-    this.onSearch.emit({
+    this.search.emit({
       searchQuery: this.searchQuery,
     });
   }

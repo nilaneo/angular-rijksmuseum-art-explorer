@@ -9,17 +9,14 @@ describe('artObjectsSortComponent', () => {
   });
 
   describe('changeSortOrder', () => {
-    it('should pass event to onSortOrderChange', () => {
+    it('should emit sortOrderChange event', () => {
       artObjectsSortComponent.sortOrder = SortOrder.RELEVANCE;
-      artObjectsSortComponent.onSortOrderChange = jest.fn();
+      spyOn(artObjectsSortComponent.sortOrderChange, 'emit');
 
       artObjectsSortComponent.changeSortOrder();
 
-      expect(artObjectsSortComponent.onSortOrderChange).toHaveBeenCalledWith({
-        $event: {
-          newSortOrder: SortOrder.RELEVANCE,
-        },
-      });
+      expect(artObjectsSortComponent.sortOrderChange.emit)
+        .toHaveBeenCalledWith({ newSortOrder: SortOrder.RELEVANCE });
     });
   });
 });

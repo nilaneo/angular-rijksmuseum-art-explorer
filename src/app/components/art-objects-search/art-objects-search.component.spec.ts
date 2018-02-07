@@ -12,13 +12,13 @@ describe('artObjectsSearchComponent', () => {
   });
 
   describe('onSubmit', () => {
-    it('should pass event to onSearch', () => {
+    it('should emit search event', () => {
       artObjectsSearchComponent.searchQuery = 'some query';
-      spyOn(artObjectsSearchComponent.onSearch, 'emit');
+      spyOn(artObjectsSearchComponent.search, 'emit');
 
       artObjectsSearchComponent.onSubmit();
 
-      expect(artObjectsSearchComponent.onSearch.emit)
+      expect(artObjectsSearchComponent.search.emit)
         .toHaveBeenCalledWith({ searchQuery: 'some query' });
     });
   });
