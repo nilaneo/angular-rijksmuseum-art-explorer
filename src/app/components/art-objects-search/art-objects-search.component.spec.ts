@@ -14,15 +14,12 @@ describe('artObjectsSearchComponent', () => {
   describe('onSubmit', () => {
     it('should pass event to onSearch', () => {
       artObjectsSearchComponent.searchQuery = 'some query';
-      artObjectsSearchComponent.onSearch = jest.fn();
+      spyOn(artObjectsSearchComponent.onSearch, 'emit');
 
       artObjectsSearchComponent.onSubmit();
 
-      expect(artObjectsSearchComponent.onSearch).toHaveBeenCalledWith({
-        $event: {
-          searchQuery: 'some query',
-        },
-      });
+      expect(artObjectsSearchComponent.onSearch.emit)
+        .toHaveBeenCalledWith({ searchQuery: 'some query' });
     });
   });
 });
