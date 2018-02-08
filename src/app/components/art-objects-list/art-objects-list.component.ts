@@ -1,4 +1,5 @@
-import { IOnChanges, IOnChangesObject } from 'angular';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+
 import {
   rijksmuseumApiServiceToken,
   RijksmuseumApiService,
@@ -18,25 +19,25 @@ export interface IOnListLoadEvent {
   artObjectsListResponseData: IArtObjectsListResponseData;
 }
 
-export class ArtObjectsListComponent implements IOnChanges {
+@Component({
+  selector: 'rm-art-objects-list',
+  template,
+})
+export class ArtObjectsListComponent implements OnChanges {
   public artObjects: IArtObject[] | undefined;
   public selectedArtObjectNumber: string | undefined;
-  public searchQuery: string | undefined;
-  public sortOrder: SortOrder | undefined;
-  public page: number | undefined;
-  public pageSize: number | undefined;
-  public onSelect: (data: { $event: IOnSelectEvent}) => void ;
-  public onListLoad: (data: { $event: IOnListLoadEvent}) => void;
-
-  static get $inject() {
-    return [rijksmuseumApiServiceToken];
-  }
+  @Input() public searchQuery: string | undefined;
+  @Input() public sortOrder: SortOrder | undefined;
+  @Input() public page: number | undefined;
+  @Input() public pageSize: number | undefined;
+  @Output() public select = new EventEmitter<IOnSelectEvent>();
+  @Output() public listLoad = new EventEmitter<IOnListLoadEvent>();
 
   constructor(
     private rijksmuseumApiService: RijksmuseumApiService,
   ) {}
 
-  public $onChanges(changes: IOnChangesObject) {
+  public ngOnChanges(changes: SimpleChanges) {
     if (
       'searchQuery' in changes ||
       'sortOrder' in changes ||
@@ -49,11 +50,7 @@ export class ArtObjectsListComponent implements IOnChanges {
 
   public selectArtObject(artObject: IArtObject) {
     this.selectedArtObjectNumber = artObject.objectNumber;
-    this.onSelect({
-      $event: {
-        objectNumber: this.selectedArtObjectNumber,
-      },
-    });
+    this.select.emit({ objectNumber: this.selectedArtObjectNumber });
   }
 
   public isSelected(artObject: IArtObject) {
@@ -70,25 +67,7 @@ export class ArtObjectsListComponent implements IOnChanges {
       })
       .then((data) => {
         this.artObjects = data.artObjects;
-        this.onListLoad({
-          $event: {
-            artObjectsListResponseData: data,
-          },
-        });
+        this.listLoad.emit({ artObjectsListResponseData: data });
       });
   }
 }
-
-export const artObjectsListComponentName = 'rmArtObjectsList';
-export const artObjectsListComponentOptions = {
-  bindings: {
-    searchQuery: '<',
-    sortOrder: '<',
-    page: '<',
-    pageSize: '<',
-    onSelect: '&',
-    onListLoad: '&',
-  },
-  controller: ArtObjectsListComponent,
-  template,
-};

@@ -1,9 +1,9 @@
 <ul class="art-objects-list">
   <li
-    ng-repeat="artObject in $ctrl.artObjects"
+    *ngFor="let artObject of artObjects"
     class="art-objects-list-item"
-    ng-class="{'is-selected': $ctrl.isSelected(artObject)}"
-    ng-click="$ctrl.selectArtObject(artObject)"
+    [ngClass]="{'is-selected': isSelected(artObject)}"
+    (click)="selectArtObject(artObject)"
   >
     {{artObject.title}}
   </li>

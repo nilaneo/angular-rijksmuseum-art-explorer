@@ -24,13 +24,7 @@ describe('artObjectsListComponent', () => {
     rijksmuseumApiService.getList.mockReturnValue(getListDefer.promise);
 
     artObjectsListComponent = new ArtObjectsListComponent(rijksmuseumApiService as any);
-    artObjectsListComponent.onListLoad = jest.fn();
-  });
-
-  describe('$inject', () => {
-    it('should return list of dependencies', () => {
-      expect(ArtObjectsListComponent.$inject).toEqual([rijksmuseumApiServiceToken]);
-    });
+    spyOn(artObjectsListComponent.listLoad, 'emit');
   });
 
   describe('isSelected', () => {
@@ -64,7 +58,7 @@ describe('artObjectsListComponent', () => {
         title: 'some title',
       };
 
-      artObjectsListComponent.onSelect = jest.fn();
+      spyOn(artObjectsListComponent.select, 'emit');
 
       artObjectsListComponent.selectArtObject(artObject);
     });
@@ -73,16 +67,13 @@ describe('artObjectsListComponent', () => {
       expect(artObjectsListComponent.selectedArtObjectNumber).toBe('abc123');
     });
 
-    it('should pass event to onSelect', () => {
-      expect(artObjectsListComponent.onSelect).toHaveBeenCalledWith({
-        $event: {
-          objectNumber: 'abc123',
-        },
-      });
+    it('should emit select event', () => {
+      expect(artObjectsListComponent.select.emit)
+        .toHaveBeenCalledWith({ objectNumber: 'abc123' });
     });
   });
 
-  describe('$onChanges', () => {
+  describe('ngOnChanges', () => {
     beforeEach(() => {
       artObjectsListComponent.searchQuery = 'some search query';
       artObjectsListComponent.sortOrder = SortOrder.CHRONOLOGIC;
@@ -95,13 +86,14 @@ describe('artObjectsListComponent', () => {
         const changes = {
           searchQuery: {
             isFirstChange: () => false,
+            firstChange: false,
             previousValue: 'some search query',
             currentValue: 'new search query',
           },
         };
         artObjectsListComponent.searchQuery = changes.searchQuery.currentValue;
 
-        artObjectsListComponent.$onChanges(changes);
+        artObjectsListComponent.ngOnChanges(changes);
       });
 
       it('should load new list', () => {
@@ -135,19 +127,16 @@ describe('artObjectsListComponent', () => {
           ]);
         });
 
-        it('should pass event to onListLoad', () => {
-          expect(artObjectsListComponent.onListLoad).toHaveBeenCalledWith({
-            $event: {
-              artObjectsListResponseData,
-            },
-          });
+        it('should emit listLoad event', () => {
+          expect(artObjectsListComponent.listLoad.emit)
+            .toHaveBeenCalledWith({ artObjectsListResponseData });
         });
       });
     });
 
     describe('when list params have not been changed', () => {
       beforeEach(() => {
-        artObjectsListComponent.$onChanges({});
+        artObjectsListComponent.ngOnChanges({});
       });
 
       it('should not load new list', () => {
