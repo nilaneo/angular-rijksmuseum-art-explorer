@@ -1,3 +1,5 @@
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+
 import template from './pagination.component.html';
 import './pagination.component.css';
 
@@ -9,16 +11,20 @@ export interface IOnPageSizeChangeEvent {
   newPageSize: number;
 }
 
-export class PaginationComponent {
+@Component({
+  selector: 'rm-pagination',
+  template,
+})
+export class PaginationComponent implements OnInit {
   public newPageSize = 1;
   public pageSizeOptions = [5, 10, 15, 20, 25];
-  public currentPage: number | undefined;
-  public totalPages: number | undefined;
-  public pageSize: number | undefined;
-  public onPageChange: (data: { $event: IOnPageChangeEvent }) => void;
-  public onPageSizeChange: (data: { $event: IOnPageSizeChangeEvent }) => void;
+  @Input() public currentPage: number | undefined;
+  @Input() public totalPages: number | undefined;
+  @Input() public pageSize: number | undefined;
+  @Output() public pageChange = new EventEmitter<IOnPageChangeEvent>();
+  @Output() public pageSizeChange =  new EventEmitter<IOnPageSizeChangeEvent>();
 
-  public $onInit() {
+  public ngOnInit() {
     if (this.pageSize !== undefined) {
       this.newPageSize = this.pageSize;
     }
@@ -37,31 +43,10 @@ export class PaginationComponent {
   }
 
   public onChoosePageSize() {
-    this.onPageSizeChange({
-      $event: {
-        newPageSize: this.newPageSize,
-      },
-    });
+    this.pageSizeChange.emit({ newPageSize: this.newPageSize });
   }
 
   private goToPage(newCurrentPage: number) {
-    this.onPageChange({
-      $event: {
-        newCurrentPage,
-      },
-    });
+    this.pageChange.emit({ newCurrentPage });
   }
 }
-
-export const paginationComponentName = 'rmPagination';
-export const paginationComponentOptions = {
-  bindings: {
-    currentPage: '<',
-    totalPages: '<',
-    pageSize: '<',
-    onPageChange: '&',
-    onPageSizeChange: '&',
-  },
-  controller: PaginationComponent,
-  template,
-};

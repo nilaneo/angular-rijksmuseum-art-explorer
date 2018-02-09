@@ -7,16 +7,11 @@ describe('artObjectsSearchComponent', () => {
     artObjectsSearchComponent =  new ArtObjectsSearchComponent();
   });
 
-  it('has empty string as default search query', () => {
-    expect(artObjectsSearchComponent.searchQuery).toBe('');
-  });
-
   describe('onSubmit', () => {
     it('should emit search event', () => {
-      artObjectsSearchComponent.searchQuery = 'some query';
       spyOn(artObjectsSearchComponent.search, 'emit');
 
-      artObjectsSearchComponent.onSubmit();
+      artObjectsSearchComponent.onSubmit('some query');
 
       expect(artObjectsSearchComponent.search.emit)
         .toHaveBeenCalledWith({ searchQuery: 'some query' });

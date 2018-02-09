@@ -1,4 +1,8 @@
-<form (ngSubmit)="onSubmit()">
-  <input type="text" [(ngModel)]="searchQuery" placeholder="Enter search query">
+<form (submit)="onSubmit(searchInput.value)">
+  <input
+    #searchInput
+    type="text"
+    placeholder="Enter search query"
+  />
   <button type="submit">Search</button>
 </form>

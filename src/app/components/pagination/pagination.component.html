@@ -1,17 +1,21 @@
 <button
   type="button"
-  ng-click="$ctrl.onClickPrevious()"
-  ng-disabled="$ctrl.currentPage === 1"
+  (click)="onClickPrevious()"
+  [disabled]="currentPage === 1"
 >Previous</button>
-<span>{{$ctrl.currentPage}}</span>
-<span ng-if="$ctrl.totalPages">of {{$ctrl.totalPages}}</span>
+<span>{{currentPage}}</span>
+<span *ngIf="totalPages">of {{totalPages}}</span>
 <button
   type="button"
-  ng-click="$ctrl.onClickNext()"
+  (click)="onClickNext()"
 >Next</button>
 
 <select
-  ng-model="$ctrl.newPageSize"
-  ng-change="$ctrl.onChoosePageSize()"
-  ng-options="pageSizeOption + ' per page' for pageSizeOption in $ctrl.pageSizeOptions"
-></select>
+  [(ngModel)]="newPageSize"
+  (change)="onChoosePageSize()"
+>
+  <option
+    *ngFor="let pageSizeOption of pageSizeOptions"
+    [value]="pageSizeOption"
+  >{{ pageSizeOption + ' per page' }}</option>
+</select>

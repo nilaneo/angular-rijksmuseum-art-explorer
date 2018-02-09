@@ -7,11 +7,11 @@ describe('paginationComponent', () => {
     paginationComponent = new PaginationComponent();
   });
 
-  describe('$onInit', () => {
+  describe('ngOnInit', () => {
     it('should set newPageSize if pageSize is defined', () => {
       paginationComponent.pageSize = 42;
 
-      paginationComponent.$onInit();
+      paginationComponent.ngOnInit();
 
       expect(paginationComponent.newPageSize).toBe(42);
     });
@@ -20,7 +20,7 @@ describe('paginationComponent', () => {
       const previousNewPageSize = paginationComponent.newPageSize;
       paginationComponent.pageSize = undefined;
 
-      paginationComponent.$onInit();
+      paginationComponent.ngOnInit();
 
       expect(paginationComponent.newPageSize).toBe(previousNewPageSize);
     });
@@ -29,63 +29,54 @@ describe('paginationComponent', () => {
   describe('onClickPrevious', () => {
     it('should got to previous page if current page is defined', () => {
       paginationComponent.currentPage = 42;
-      paginationComponent.onPageChange = jest.fn();
+      spyOn(paginationComponent.pageChange, 'emit');
 
       paginationComponent.onClickPrevious();
 
-      expect(paginationComponent.onPageChange).toHaveBeenCalledWith({
-        $event: {
-          newCurrentPage: 41,
-        },
-      });
+      expect(paginationComponent.pageChange.emit)
+        .toHaveBeenCalledWith({ newCurrentPage: 41 });
     });
 
     it('should do nothing if current page is undefined', () => {
       paginationComponent.currentPage = undefined;
-      paginationComponent.onPageChange = jest.fn();
+      spyOn(paginationComponent.pageChange, 'emit');
 
       paginationComponent.onClickPrevious();
 
-      expect(paginationComponent.onPageChange).not.toHaveBeenCalled();
+      expect(paginationComponent.pageChange.emit).not.toHaveBeenCalled();
     });
   });
 
   describe('onClickNext', () => {
     it('should got to previous page if current page is defined', () => {
       paginationComponent.currentPage = 42;
-      paginationComponent.onPageChange = jest.fn();
+      spyOn(paginationComponent.pageChange, 'emit');
 
       paginationComponent.onClickNext();
 
-      expect(paginationComponent.onPageChange).toHaveBeenCalledWith({
-        $event: {
-          newCurrentPage: 43,
-        },
-      });
+      expect(paginationComponent.pageChange.emit)
+        .toHaveBeenCalledWith({ newCurrentPage: 43 });
     });
 
     it('should do nothing if current page is undefined', () => {
       paginationComponent.currentPage = undefined;
-      paginationComponent.onPageChange = jest.fn();
+      spyOn(paginationComponent.pageChange, 'emit');
 
       paginationComponent.onClickNext();
 
-      expect(paginationComponent.onPageChange).not.toHaveBeenCalled();
+      expect(paginationComponent.pageChange.emit).not.toHaveBeenCalled();
     });
   });
 
   describe('onChoosePageSize', () => {
-    it('should pass event to onPageSizeChange', () => {
+    it('should emit pageSizeChange event', () => {
       paginationComponent.newPageSize = 25;
-      paginationComponent.onPageSizeChange = jest.fn();
+      spyOn(paginationComponent.pageSizeChange, 'emit');
 
       paginationComponent.onChoosePageSize();
 
-      expect(paginationComponent.onPageSizeChange).toHaveBeenCalledWith({
-        $event: {
-          newPageSize: 25,
-        },
-      });
+      expect(paginationComponent.pageSizeChange.emit)
+        .toHaveBeenCalledWith({ newPageSize: 25 });
     });
   });
 });
