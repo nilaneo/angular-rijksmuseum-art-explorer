@@ -1,4 +1,5 @@
-import { IOnChanges, IOnChangesObject } from 'angular';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+
 import {
   rijksmuseumApiServiceToken,
   IArtObjectDetails,
@@ -8,19 +9,19 @@ import {
 import template from './art-object-details.component.html';
 import './art-object-details.component.css';
 
-export class ArtObjectDetailsComponent implements IOnChanges {
+@Component({
+  selector: 'rm-art-object-details',
+  template,
+})
+export class ArtObjectDetailsComponent implements OnChanges {
   public artObjectDetails: IArtObjectDetails | undefined;
-  public objectNumber: string | undefined;
-
-  static get $inject() {
-    return [rijksmuseumApiServiceToken];
-  }
+  @Input() public objectNumber: string | undefined;
 
   constructor(
     private rijksmuseumApiService: RijksmuseumApiService,
   ) {}
 
-  public $onChanges(changes: IOnChangesObject) {
+  public ngOnChanges(changes: SimpleChanges) {
     if ('objectNumber' in changes) {
       this.artObjectDetails = undefined;
       this.loadDetails();
@@ -37,12 +38,3 @@ export class ArtObjectDetailsComponent implements IOnChanges {
     }
   }
 }
-
-export const artObjectDetailsComponentName = 'rmArtObjectDetails';
-export const artObjectDetailsComponentOptions = {
-  bindings: {
-    objectNumber: '<',
-  },
-  controller: ArtObjectDetailsComponent,
-  template,
-};

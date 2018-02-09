@@ -22,13 +22,7 @@ describe('artObjectDetailsComponent', () => {
     artObjectDetailsComponent = new ArtObjectDetailsComponent(rijksmuseumApiService as any);
   });
 
-  describe('$inject', () => {
-    it('should return list of dependencies', () => {
-      expect(ArtObjectDetailsComponent.$inject).toEqual([rijksmuseumApiServiceToken]);
-    });
-  });
-
-  describe('$onChanges', () => {
+  describe('ngOnChanges', () => {
     beforeEach(() => {
       artObjectDetailsComponent.artObjectDetails = {
         longTitle: 'Old Art Object',
@@ -40,7 +34,7 @@ describe('artObjectDetailsComponent', () => {
 
     describe('when objectNumber has not been changed', () => {
       beforeEach(() => {
-        artObjectDetailsComponent.$onChanges({});
+        artObjectDetailsComponent.ngOnChanges({});
       });
 
       it('should not unset old details', () => {
@@ -57,13 +51,14 @@ describe('artObjectDetailsComponent', () => {
         const changes = {
           objectNumber: {
             isFirstChange: () => false,
+            firstChange: false,
             previousValue: 'abc567',
             currentValue: 'bac123',
           },
         };
         artObjectDetailsComponent.objectNumber = 'bac123';
 
-        artObjectDetailsComponent.$onChanges(changes);
+        artObjectDetailsComponent.ngOnChanges(changes);
       });
 
       it('should unset old details', () => {
@@ -98,13 +93,14 @@ describe('artObjectDetailsComponent', () => {
         const changes = {
           objectNumber: {
             isFirstChange: () => false,
+            firstChange: false,
             previousValue: 'abc567',
             currentValue: undefined,
           },
         };
         artObjectDetailsComponent.objectNumber = undefined;
 
-        artObjectDetailsComponent.$onChanges(changes);
+        artObjectDetailsComponent.ngOnChanges(changes);
       });
 
       it('should unset old details', () => {

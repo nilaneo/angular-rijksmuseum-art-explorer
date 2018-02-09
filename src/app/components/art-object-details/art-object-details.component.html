@@ -1,6 +1,6 @@
-<div ng-if="$ctrl.artObjectDetails">
-  <h2>{{$ctrl.artObjectDetails.longTitle}}</h2>
+<div *ngIf="artObjectDetails">
+  <h2>{{artObjectDetails.longTitle}}</h2>
   <hr>
-  <p>{{$ctrl.artObjectDetails.description}}</p>
-  <img ng-src="{{$ctrl.artObjectDetails.webImage.url}}" class="art-object-details-img">
+  <p>{{artObjectDetails.description}}</p>
+  <img [src]="artObjectDetails.webImage.url" class="art-object-details-img">
 </div>
