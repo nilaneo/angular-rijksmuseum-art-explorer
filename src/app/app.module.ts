@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { RijksmuseumApiService } from './services/rijksmuseum-api/rijksmuseum-api.service';
+import { defaultSortOrderToken, SortOrder } from './values/sort-orders.value';
 
 import { RootComponent } from './components/root/root.component';
 import { ArtObjectsListComponent } from './components/art-objects-list/art-objects-list.component';
@@ -16,6 +17,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
   ],
   providers: [
     RijksmuseumApiService,
+    { provide: defaultSortOrderToken, useValue: SortOrder.RELEVANCE},
   ],
   declarations: [
     RootComponent,

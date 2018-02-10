@@ -1,3 +1,5 @@
+import { InjectionToken } from '@angular/core';
+
 export enum SortOrder {
   RELEVANCE = 'relevance',
   OBJECT_TYPE = 'objecttype',
@@ -7,9 +9,4 @@ export enum SortOrder {
   ARTIST_DESC = 'artistdesc',
 }
 
-export const defaultSortOrderToken = 'defaultSortOrder';
-export const defaultSortOrder: SortOrder = SortOrder.RELEVANCE;
-
-export const sortOrdersValueDeclaration = {
-  [defaultSortOrderToken]: defaultSortOrder,
-};
+export const defaultSortOrderToken = new InjectionToken('defaultSortOrder');

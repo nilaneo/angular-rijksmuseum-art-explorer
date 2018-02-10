@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -38,7 +38,7 @@ export interface IGetListParams {
 export class RijksmuseumApiService {
   constructor(
     private httpClient: HttpClient,
-    private defaultSortOrder: SortOrder,
+    @Inject(defaultSortOrderToken) private defaultSortOrder: SortOrder,
   ) {}
 
   public getList({
