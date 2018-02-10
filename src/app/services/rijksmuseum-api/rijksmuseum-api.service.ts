@@ -1,4 +1,8 @@
-import { IHttpService } from 'angular';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+
 import { defaultSortOrderToken, SortOrder } from '../../values/sort-orders.value';
 
 export interface IArtObject {
@@ -30,13 +34,10 @@ export interface IGetListParams {
   pageSize?: number | undefined;
 }
 
+@Injectable()
 export class RijksmuseumApiService {
-  static get $inject() {
-    return ['$http', defaultSortOrderToken];
-  }
-
   constructor(
-    private $http: IHttpService,
+    private httpClient: HttpClient,
     private defaultSortOrder: SortOrder,
   ) {}
 
@@ -46,33 +47,29 @@ export class RijksmuseumApiService {
     page = 1,
     pageSize = 10,
   }: IGetListParams = {}) {
-    return this.$http
+    return this.httpClient
       .get<IArtObjectsListResponseData>('https://www.rijksmuseum.nl/api/en/collection', {
         params: {
           format: 'json',
           key: '3tYxhQmI',
           q: searchQuery,
           s: sortOrder,
-          ps: pageSize,
-          p: page,
+          ps: String(pageSize),
+          p: String(page),
         },
       })
-      .then((response) => response.data);
+      .toPromise();
   }
 
   public getDetails(objectNumber: string) {
-    return this.$http
+    return this.httpClient
       .get<IArtObjectDetailsResponseData>(`https://www.rijksmuseum.nl/api/en/collection/${objectNumber}`, {
         params: {
           format: 'json',
           key: '3tYxhQmI',
         },
       })
-      .then((response) => response.data.artObject);
+      .map((data) => data.artObject)
+      .toPromise();
   }
 }
-
-export const rijksmuseumApiServiceToken = 'rijksmuseumApiService';
-export const rijksmuseumApiServiceDeclaration = {
-  [rijksmuseumApiServiceToken]: RijksmuseumApiService,
-};

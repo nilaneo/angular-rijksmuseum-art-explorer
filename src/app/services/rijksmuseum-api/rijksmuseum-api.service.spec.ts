@@ -1,4 +1,5 @@
-import { IPromise } from 'angular';
+import { Subject } from 'rxjs/Subject';
+
 import {
   RijksmuseumApiService,
   IArtObjectsListResponseData,
@@ -9,32 +10,23 @@ import { SortOrder, defaultSortOrderToken } from '../../values/sort-orders.value
 
 describe('rijksmuseumApiService', () => {
   let rijksmuseumApiService: RijksmuseumApiService;
-  let $http: {
+  let httpClient: {
     get: jest.Mock,
   };
-  let $httpGetDefer: any;
+  let httpClientGetSubject: Subject<any>;
 
   beforeEach(() => {
-    $http = {
+    httpClient = {
       get: jest.fn(),
     };
-    $httpGetDefer = {};
-    $httpGetDefer.promise = new Promise((resolve, reject) => {
-      $httpGetDefer.resolve = resolve;
-      $httpGetDefer.reject = reject;
-    });
-    $http.get.mockReturnValue($httpGetDefer.promise);
-    rijksmuseumApiService = new RijksmuseumApiService($http as any, SortOrder.ARTIST_ASC);
-  });
 
-  describe('$inject', () => {
-    it('should return list of dependencies', () => {
-      expect(RijksmuseumApiService.$inject).toEqual(['$http', defaultSortOrderToken]);
-    });
+    httpClientGetSubject = new Subject();
+    httpClient.get.mockReturnValue(httpClientGetSubject.asObservable());
+    rijksmuseumApiService = new RijksmuseumApiService(httpClient as any, SortOrder.ARTIST_ASC);
   });
 
   describe('getList', () => {
-    let getListResult: IPromise<IArtObjectsListResponseData>;
+    let getListResult: Promise<IArtObjectsListResponseData>;
 
     describe('when all params are passed', () => {
       beforeEach(() => {
@@ -47,14 +39,14 @@ describe('rijksmuseumApiService', () => {
       });
 
       it('should make get request for collection with passed params', () => {
-        expect($http.get).toHaveBeenCalledWith('https://www.rijksmuseum.nl/api/en/collection', {
+        expect(httpClient.get).toHaveBeenCalledWith('https://www.rijksmuseum.nl/api/en/collection', {
           params: {
             format: 'json',
             key: '3tYxhQmI',
             q: 'some search query',
             s: SortOrder.RELEVANCE,
-            ps: 5,
-            p: 23,
+            ps: '5',
+            p: '23',
           },
         });
       });
@@ -71,9 +63,8 @@ describe('rijksmuseumApiService', () => {
             count: 2,
           };
 
-          $httpGetDefer.resolve({
-            data: artObjectsListResponseData,
-          });
+          httpClientGetSubject.next(artObjectsListResponseData);
+          httpClientGetSubject.complete();
         });
 
         describe('returned value', () => {
@@ -90,14 +81,14 @@ describe('rijksmuseumApiService', () => {
       });
 
       it('should make get request for collection with passed params', () => {
-        expect($http.get).toHaveBeenCalledWith('https://www.rijksmuseum.nl/api/en/collection', {
+        expect(httpClient.get).toHaveBeenCalledWith('https://www.rijksmuseum.nl/api/en/collection', {
           params: {
             format: 'json',
             key: '3tYxhQmI',
             q: '',
             s: SortOrder.ARTIST_ASC,
-            ps: 10,
-            p: 1,
+            ps: '10',
+            p: '1',
           },
         });
       });
@@ -114,9 +105,8 @@ describe('rijksmuseumApiService', () => {
             count: 2,
           };
 
-          $httpGetDefer.resolve({
-            data: artObjectsListResponseData,
-          });
+          httpClientGetSubject.next(artObjectsListResponseData);
+          httpClientGetSubject.complete();
         });
 
         describe('returned value', () => {
@@ -129,14 +119,14 @@ describe('rijksmuseumApiService', () => {
   });
 
   describe('getDetails', () => {
-    let getDetailsResult: IPromise<IArtObjectDetails>;
+    let getDetailsResult: Promise<IArtObjectDetails>;
 
     beforeEach(() => {
       getDetailsResult = rijksmuseumApiService.getDetails('abc123');
     });
 
     it('should make get request for details', () => {
-      expect($http.get).toHaveBeenCalledWith('https://www.rijksmuseum.nl/api/en/collection/abc123', {
+      expect(httpClient.get).toHaveBeenCalledWith('https://www.rijksmuseum.nl/api/en/collection/abc123', {
         params: {
           format: 'json',
           key: '3tYxhQmI',
@@ -157,9 +147,9 @@ describe('rijksmuseumApiService', () => {
             },
           },
         };
-        $httpGetDefer.resolve({
-          data: artObjectDetailsResponseData,
-        });
+
+        httpClientGetSubject.next(artObjectDetailsResponseData);
+        httpClientGetSubject.complete();
       });
 
       describe('returned value', () => {

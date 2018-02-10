@@ -1,5 +1,5 @@
 import { ArtObjectDetailsComponent } from './art-object-details.component';
-import { IArtObjectDetails, rijksmuseumApiServiceToken } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
+import { IArtObjectDetails } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 
 describe('artObjectDetailsComponent', () => {
   let rijksmuseumApiService: { getDetails: jest.Mock };

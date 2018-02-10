@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 import {
-  rijksmuseumApiServiceToken,
   RijksmuseumApiService,
   IArtObject,
   IArtObjectsListResponseData,

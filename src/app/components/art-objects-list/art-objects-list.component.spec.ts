@@ -1,8 +1,5 @@
 import { ArtObjectsListComponent } from './art-objects-list.component';
-import {
-  rijksmuseumApiServiceToken,
-  IArtObjectsListResponseData,
-} from '../../services/rijksmuseum-api/rijksmuseum-api.service';
+import { IArtObjectsListResponseData } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 import { SortOrder } from '../../values/sort-orders.value';
 
 describe('artObjectsListComponent', () => {

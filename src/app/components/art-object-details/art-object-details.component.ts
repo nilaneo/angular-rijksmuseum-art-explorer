@@ -1,10 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import {
-  rijksmuseumApiServiceToken,
-  IArtObjectDetails,
-  RijksmuseumApiService,
-} from '../../services/rijksmuseum-api/rijksmuseum-api.service';
+import { IArtObjectDetails, RijksmuseumApiService } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 
 import template from './art-object-details.component.html';
 import './art-object-details.component.css';
