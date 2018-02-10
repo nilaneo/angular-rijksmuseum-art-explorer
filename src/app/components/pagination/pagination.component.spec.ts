@@ -7,25 +7,6 @@ describe('paginationComponent', () => {
     paginationComponent = new PaginationComponent();
   });
 
-  describe('ngOnInit', () => {
-    it('should set newPageSize if pageSize is defined', () => {
-      paginationComponent.pageSize = 42;
-
-      paginationComponent.ngOnInit();
-
-      expect(paginationComponent.newPageSize).toBe(42);
-    });
-
-    it('should not change newPageSize if pageSize is undefined', () => {
-      const previousNewPageSize = paginationComponent.newPageSize;
-      paginationComponent.pageSize = undefined;
-
-      paginationComponent.ngOnInit();
-
-      expect(paginationComponent.newPageSize).toBe(previousNewPageSize);
-    });
-  });
-
   describe('onClickPrevious', () => {
     it('should got to previous page if current page is defined', () => {
       paginationComponent.currentPage = 42;
@@ -70,10 +51,9 @@ describe('paginationComponent', () => {
 
   describe('onChoosePageSize', () => {
     it('should emit pageSizeChange event', () => {
-      paginationComponent.newPageSize = 25;
       spyOn(paginationComponent.pageSizeChange, 'emit');
 
-      paginationComponent.onChoosePageSize();
+      paginationComponent.onChoosePageSize(25);
 
       expect(paginationComponent.pageSizeChange.emit)
         .toHaveBeenCalledWith({ newPageSize: 25 });

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import template from './pagination.component.html';
 import './pagination.component.css';
@@ -15,20 +15,13 @@ export interface IOnPageSizeChangeEvent {
   selector: 'rm-pagination',
   template,
 })
-export class PaginationComponent implements OnInit {
-  public newPageSize = 1;
+export class PaginationComponent {
   public pageSizeOptions = [5, 10, 15, 20, 25];
   @Input() public currentPage: number | undefined;
   @Input() public totalPages: number | undefined;
   @Input() public pageSize: number | undefined;
   @Output() public pageChange = new EventEmitter<IOnPageChangeEvent>();
   @Output() public pageSizeChange =  new EventEmitter<IOnPageSizeChangeEvent>();
-
-  public ngOnInit() {
-    if (this.pageSize !== undefined) {
-      this.newPageSize = this.pageSize;
-    }
-  }
 
   public onClickPrevious() {
     if (this.currentPage !== undefined) {
@@ -42,8 +35,8 @@ export class PaginationComponent implements OnInit {
     }
   }
 
-  public onChoosePageSize() {
-    this.pageSizeChange.emit({ newPageSize: this.newPageSize });
+  public onChoosePageSize(newPageSize: number) {
+    this.pageSizeChange.emit({ newPageSize });
   }
 
   private goToPage(newCurrentPage: number) {

@@ -3,7 +3,9 @@
   (click)="onClickPrevious()"
   [disabled]="currentPage === 1"
 >Previous</button>
+
 <span>{{currentPage}}</span>
+
 <span *ngIf="totalPages">of {{totalPages}}</span>
 <button
   type="button"
@@ -11,8 +13,9 @@
 >Next</button>
 
 <select
-  [(ngModel)]="newPageSize"
-  (change)="onChoosePageSize()"
+  #pageSizeSelect
+  [value]="pageSize"
+  (change)="onChoosePageSize(pageSizeSelect.value)"
 >
   <option
     *ngFor="let pageSizeOption of pageSizeOptions"

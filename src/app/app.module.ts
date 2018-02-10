@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { RijksmuseumApiService } from './services/rijksmuseum-api/rijksmuseum-api.service';
@@ -16,7 +15,6 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
   ],
   providers: [

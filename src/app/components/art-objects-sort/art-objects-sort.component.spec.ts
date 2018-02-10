@@ -10,10 +10,9 @@ describe('artObjectsSortComponent', () => {
 
   describe('changeSortOrder', () => {
     it('should emit sortOrderChange event', () => {
-      artObjectsSortComponent.sortOrder = SortOrder.RELEVANCE;
       spyOn(artObjectsSortComponent.sortOrderChange, 'emit');
 
-      artObjectsSortComponent.changeSortOrder();
+      artObjectsSortComponent.changeSortOrder(SortOrder.RELEVANCE);
 
       expect(artObjectsSortComponent.sortOrderChange.emit)
         .toHaveBeenCalledWith({ newSortOrder: SortOrder.RELEVANCE });

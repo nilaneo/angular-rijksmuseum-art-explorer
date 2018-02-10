@@ -17,7 +17,7 @@ export class ArtObjectsSortComponent {
   @Input() public sortOrder: SortOrder | undefined;
   @Output() public sortOrderChange = new EventEmitter<IOnSortOrderChangeEvent>();
 
-  public changeSortOrder() {
-    this.sortOrderChange.emit({ newSortOrder: this.sortOrder });
+  public changeSortOrder(newSortOrder: SortOrder) {
+    this.sortOrderChange.emit({ newSortOrder });
   }
 }

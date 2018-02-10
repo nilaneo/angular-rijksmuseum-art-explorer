@@ -1,5 +1,9 @@
 <span>Order by: </span>
-<select [(ngModel)]="sortOrder" (change)="changeSortOrder()">
+<select
+  #sortOrderSelect
+  [value]="sortOrder"
+  (change)="changeSortOrder(sortOrderSelect.value)"
+>
   <option [value]="sortOrders.RELEVANCE">Relevance</option>
   <option [value]="sortOrders.OBJECT_TYPE">Type of work</option>
   <option [value]="sortOrders.CHRONOLOGIC">Chronological old > new</option>
