@@ -14,7 +14,6 @@
   "author": "Dmytro Yarmak <dmytroyarmak@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/angular": "^1.6.40",
     "@types/jest": "^22.0.1",
     "css-loader": "^0.28.7",
     "html-webpack-plugin": "^2.30.1",
@@ -31,9 +30,12 @@
   },
   "dependencies": {
     "@angular/common": "^5.2.4",
+    "@angular/compiler": "^5.2.4",
     "@angular/core": "^5.2.4",
+    "@angular/forms": "^5.2.4",
     "@angular/platform-browser": "^5.2.4",
-    "angular": "^1.6.8",
+    "@angular/platform-browser-dynamic": "^5.2.4",
+    "core-js": "^2.5.3",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.20"
   },

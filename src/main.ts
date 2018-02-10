@@ -1,5 +1,8 @@
-import { bootstrap } from 'angular';
+import 'core-js/es7/reflect';
+import 'zone.js/dist/zone';
 
-import appModule from './app/app.module';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-bootstrap(document.body, [appModule]);
+import { AppModule } from './app/app.module';
+
+platformBrowserDynamic().bootstrapModule(AppModule);
