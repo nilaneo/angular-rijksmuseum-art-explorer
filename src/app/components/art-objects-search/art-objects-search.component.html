@@ -1,4 +1,4 @@
-<form (submit)="onSubmit(searchInput.value)">
+<form (submit)="onSubmit($event, searchInput.value)">
   <input
     #searchInput
     type="text"

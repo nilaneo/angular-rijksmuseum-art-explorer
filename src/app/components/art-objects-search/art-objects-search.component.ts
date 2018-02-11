@@ -12,7 +12,8 @@ export interface IOnSearchEvent {
 export class ArtObjectsSearchComponent {
   @Output() public search = new EventEmitter<IOnSearchEvent>();
 
-  public onSubmit(searchQuery: string) {
+  public onSubmit($event: Event, searchQuery: string) {
+    $event.preventDefault();
     this.search.emit({ searchQuery });
   }
 }
