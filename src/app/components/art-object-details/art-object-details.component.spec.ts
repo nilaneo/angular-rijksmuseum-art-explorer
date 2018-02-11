@@ -2,13 +2,13 @@ import { ArtObjectDetailsComponent } from './art-object-details.component';
 import { IArtObjectDetails } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 
 describe('artObjectDetailsComponent', () => {
-  let rijksmuseumApiService: { getDetails: jest.Mock };
+  let rijksmuseumApiService: { getDetails: jasmine.Spy };
   let artObjectDetailsComponent: ArtObjectDetailsComponent;
   let getDetailsDefer: any;
 
   beforeEach(() => {
     rijksmuseumApiService = {
-      getDetails: jest.fn(),
+      getDetails: jasmine.createSpy(),
     };
 
     getDetailsDefer = {};
@@ -17,7 +17,7 @@ describe('artObjectDetailsComponent', () => {
       getDetailsDefer.reject = reject;
     });
 
-    rijksmuseumApiService.getDetails.mockReturnValue(getDetailsDefer.promise);
+    rijksmuseumApiService.getDetails.and.returnValue(getDetailsDefer.promise);
 
     artObjectDetailsComponent = new ArtObjectDetailsComponent(rijksmuseumApiService as any);
   });

@@ -4,12 +4,12 @@ import { SortOrder } from '../../values/sort-orders.value';
 
 describe('artObjectsListComponent', () => {
   let artObjectsListComponent: ArtObjectsListComponent;
-  let rijksmuseumApiService: { getList: jest.Mock };
+  let rijksmuseumApiService: { getList: jasmine.Spy };
   let getListDefer: any;
 
   beforeEach(() => {
     rijksmuseumApiService = {
-      getList: jest.fn(),
+      getList: jasmine.createSpy(),
     };
 
     getListDefer = {};
@@ -18,7 +18,7 @@ describe('artObjectsListComponent', () => {
       getListDefer.reject = reject;
     });
 
-    rijksmuseumApiService.getList.mockReturnValue(getListDefer.promise);
+    rijksmuseumApiService.getList.and.returnValue(getListDefer.promise);
 
     artObjectsListComponent = new ArtObjectsListComponent(rijksmuseumApiService as any);
     spyOn(artObjectsListComponent.listLoad, 'emit');

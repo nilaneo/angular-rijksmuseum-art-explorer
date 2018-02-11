@@ -6,12 +6,10 @@ import { IOnSortOrderChangeEvent } from '../art-objects-sort/art-objects-sort.co
 import { IOnListLoadEvent, IOnSelectEvent } from '../art-objects-list/art-objects-list.component';
 import { IOnPageChangeEvent, IOnPageSizeChangeEvent } from '../pagination/pagination.component';
 
-import template from './root.component.html';
-import './root.component.css';
-
 @Component({
   selector: 'rm-root',
-  template,
+  templateUrl: './root.component.html',
+  styleUrls: ['./root.component.css'],
 })
 export class RootComponent {
   public selectedArtObjectNumber: string | undefined;

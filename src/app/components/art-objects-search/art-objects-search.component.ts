@@ -1,15 +1,13 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
-import template from './art-objects-search.component.html';
-import './art-objects-search.component.css';
-
 export interface IOnSearchEvent {
   searchQuery: string;
 }
 
 @Component({
   selector: 'rm-art-objects-search',
-  template,
+  templateUrl: './art-objects-search.component.html',
+  styleUrls: ['./art-objects-search.component.css'],
 })
 export class ArtObjectsSearchComponent {
   @Output() public search = new EventEmitter<IOnSearchEvent>();

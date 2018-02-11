@@ -1,8 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { SortOrder } from '../../values/sort-orders.value';
-import template from './art-objects-sort.component.html';
-import './art-objects-sort.component.css';
 
 export interface IOnSortOrderChangeEvent {
   newSortOrder: SortOrder | undefined;
@@ -10,7 +8,8 @@ export interface IOnSortOrderChangeEvent {
 
 @Component({
   selector: 'rm-art-objects-sort',
-  template,
+  templateUrl: './art-objects-sort.component.html',
+  styleUrls: ['./art-objects-sort.component.css'],
 })
 export class ArtObjectsSortComponent {
   public sortOrders = SortOrder;

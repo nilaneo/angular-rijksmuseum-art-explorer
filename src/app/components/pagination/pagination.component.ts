@@ -1,8 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import template from './pagination.component.html';
-import './pagination.component.css';
-
 export interface IOnPageChangeEvent {
   newCurrentPage: number;
 }
@@ -13,7 +10,8 @@ export interface IOnPageSizeChangeEvent {
 
 @Component({
   selector: 'rm-pagination',
-  template,
+  templateUrl: './pagination.component.html',
+  styleUrls: ['./pagination.component.css'],
 })
 export class PaginationComponent {
   public pageSizeOptions = [5, 10, 15, 20, 25];

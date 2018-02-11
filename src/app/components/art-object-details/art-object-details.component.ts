@@ -2,12 +2,10 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { IArtObjectDetails, RijksmuseumApiService } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 
-import template from './art-object-details.component.html';
-import './art-object-details.component.css';
-
 @Component({
   selector: 'rm-art-object-details',
-  template,
+  templateUrl: './art-object-details.component.html',
+  styleUrls: ['./art-object-details.component.css'],
 })
 export class ArtObjectDetailsComponent implements OnChanges {
   public artObjectDetails: IArtObjectDetails | undefined;

@@ -7,9 +7,6 @@ import {
 } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 import { SortOrder } from '../../values/sort-orders.value';
 
-import template from './art-objects-list.component.html';
-import './art-objects-list.component.css';
-
 export interface IOnSelectEvent {
   objectNumber: string;
 }
@@ -20,7 +17,8 @@ export interface IOnListLoadEvent {
 
 @Component({
   selector: 'rm-art-objects-list',
-  template,
+  templateUrl: './art-objects-list.component.html',
+  styleUrls: ['./art-objects-list.component.css'],
 })
 export class ArtObjectsListComponent implements OnChanges {
   public artObjects: IArtObject[] | undefined;

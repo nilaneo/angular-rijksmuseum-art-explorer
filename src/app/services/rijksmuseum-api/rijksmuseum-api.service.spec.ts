@@ -11,17 +11,17 @@ import { SortOrder, defaultSortOrderToken } from '../../values/sort-orders.value
 describe('rijksmuseumApiService', () => {
   let rijksmuseumApiService: RijksmuseumApiService;
   let httpClient: {
-    get: jest.Mock,
+    get: jasmine.Spy,
   };
   let httpClientGetSubject: Subject<any>;
 
   beforeEach(() => {
     httpClient = {
-      get: jest.fn(),
+      get: jasmine.createSpy(),
     };
 
     httpClientGetSubject = new Subject();
-    httpClient.get.mockReturnValue(httpClientGetSubject.asObservable());
+    httpClient.get.and.returnValue(httpClientGetSubject.asObservable());
     rijksmuseumApiService = new RijksmuseumApiService(httpClient as any, SortOrder.ARTIST_ASC);
   });
 
@@ -68,8 +68,10 @@ describe('rijksmuseumApiService', () => {
         });
 
         describe('returned value', () => {
-          it('should be promise resolved by response\'s data', () => {
-            expect(getListResult).resolves.toEqual(artObjectsListResponseData);
+          it('should be promise resolved by response\'s data', (done) => {
+            getListResult.then((value) => {
+              expect(value).toEqual(artObjectsListResponseData);
+            }).then(done, done.fail);
           });
         });
       });
@@ -110,8 +112,10 @@ describe('rijksmuseumApiService', () => {
         });
 
         describe('returned value', () => {
-          it('should be promise resolved by response\'s data', () => {
-            return expect(getListResult).resolves.toEqual(artObjectsListResponseData);
+          it('should be promise resolved by response\'s data', (done) => {
+            getListResult.then((value) => {
+              expect(value).toEqual(artObjectsListResponseData);
+            }).then(done, done.fail);
           });
         });
       });
@@ -153,8 +157,10 @@ describe('rijksmuseumApiService', () => {
       });
 
       describe('returned value', () => {
-        it('should be promise resolved by response\'s data', () => {
-          return expect(getDetailsResult).resolves.toEqual(artObjectDetailsResponseData.artObject);
+        it('should be promise resolved by response\'s data', (done) => {
+          getDetailsResult.then((value) => {
+            expect(value).toEqual(artObjectDetailsResponseData);
+          }).then(done, done.fail);
         });
       });
     });
