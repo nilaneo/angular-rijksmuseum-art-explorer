@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { RijksmuseumApiService } from './services/rijksmuseum-api/rijksmuseum-api.service';
 import { defaultSortOrderToken, SortOrder } from './values/sort-orders.value';
@@ -16,6 +17,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [
     RijksmuseumApiService,
