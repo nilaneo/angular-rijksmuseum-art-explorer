@@ -8,19 +8,10 @@ describe('artObjectsSearchComponent', () => {
   });
 
   fdescribe('onSubmit', () => {
-    let $event;
-
     beforeEach(() => {
-      $event = new Event('submit');
-
-      spyOn($event, 'preventDefault');
       spyOn(artObjectsSearchComponent.search, 'emit');
 
-      artObjectsSearchComponent.onSubmit($event, 'some query');
-    });
-
-    it('should prevent default event', () => {
-      expect($event.preventDefault).toHaveBeenCalled();
+      artObjectsSearchComponent.onSubmit('some query');
     });
 
     it('should emit search event', () => {
