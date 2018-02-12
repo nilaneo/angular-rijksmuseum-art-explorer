@@ -62,7 +62,7 @@ export class ArtObjectsListComponent implements OnChanges {
         page: this.page,
         pageSize: this.pageSize,
       })
-      .then((data) => {
+      .subscribe((data) => {
         this.artObjects = data.artObjects;
         this.listLoad.emit({ artObjectsListResponseData: data });
       });

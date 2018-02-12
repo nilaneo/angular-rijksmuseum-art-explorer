@@ -1,4 +1,5 @@
-import { Subject } from 'rxjs/Subject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable } from 'rxjs/Observable';
 
 import {
   RijksmuseumApiService,
@@ -13,20 +14,20 @@ describe('rijksmuseumApiService', () => {
   let httpClient: {
     get: jasmine.Spy,
   };
-  let httpClientGetSubject: Subject<any>;
+  let httpClientGetSubject: ReplaySubject<any>;
 
   beforeEach(() => {
     httpClient = {
       get: jasmine.createSpy(),
     };
 
-    httpClientGetSubject = new Subject();
+    httpClientGetSubject = new ReplaySubject();
     httpClient.get.and.returnValue(httpClientGetSubject.asObservable());
     rijksmuseumApiService = new RijksmuseumApiService(httpClient as any, SortOrder.ARTIST_ASC);
   });
 
   describe('getList', () => {
-    let getListResult: Promise<IArtObjectsListResponseData>;
+    let getListResult: Observable<IArtObjectsListResponseData>;
 
     describe('when all params are passed', () => {
       beforeEach(() => {
@@ -69,9 +70,10 @@ describe('rijksmuseumApiService', () => {
 
         describe('returned value', () => {
           it('should be promise resolved by response\'s data', (done) => {
-            getListResult.then((value) => {
+            getListResult.subscribe((value) => {
               expect(value).toEqual(artObjectsListResponseData);
-            }).then(done, done.fail);
+              done();
+            });
           });
         });
       });
@@ -113,9 +115,10 @@ describe('rijksmuseumApiService', () => {
 
         describe('returned value', () => {
           it('should be promise resolved by response\'s data', (done) => {
-            getListResult.then((value) => {
+            getListResult.subscribe((value) => {
               expect(value).toEqual(artObjectsListResponseData);
-            }).then(done, done.fail);
+              done();
+            });
           });
         });
       });
@@ -123,7 +126,7 @@ describe('rijksmuseumApiService', () => {
   });
 
   describe('getDetails', () => {
-    let getDetailsResult: Promise<IArtObjectDetails>;
+    let getDetailsResult: Observable<IArtObjectDetails>;
 
     beforeEach(() => {
       getDetailsResult = rijksmuseumApiService.getDetails('abc123');
@@ -158,9 +161,10 @@ describe('rijksmuseumApiService', () => {
 
       describe('returned value', () => {
         it('should be promise resolved by response\'s data', (done) => {
-          getDetailsResult.then((value) => {
-            expect(value).toEqual(artObjectDetailsResponseData);
-          }).then(done, done.fail);
+          getDetailsResult.subscribe((value) => {
+            expect(value).toEqual(artObjectDetailsResponseData.artObject);
+            done();
+          });
         });
       });
     });

@@ -7,7 +7,7 @@ describe('artObjectsSearchComponent', () => {
     artObjectsSearchComponent =  new ArtObjectsSearchComponent();
   });
 
-  fdescribe('onSubmit', () => {
+  describe('onSubmit', () => {
     beforeEach(() => {
       spyOn(artObjectsSearchComponent.search, 'emit');
 

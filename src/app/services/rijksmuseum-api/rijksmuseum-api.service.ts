@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 
 import { defaultSortOrderToken, SortOrder } from '../../values/sort-orders.value';
 
@@ -57,8 +56,7 @@ export class RijksmuseumApiService {
           ps: String(pageSize),
           p: String(page),
         },
-      })
-      .toPromise();
+      });
   }
 
   public getDetails(objectNumber: string) {
@@ -69,7 +67,6 @@ export class RijksmuseumApiService {
           key: '3tYxhQmI',
         },
       })
-      .map((data) => data.artObject)
-      .toPromise();
+      .map((data) => data.artObject);
   }
 }

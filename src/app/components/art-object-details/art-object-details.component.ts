@@ -26,7 +26,7 @@ export class ArtObjectDetailsComponent implements OnChanges {
     if (this.objectNumber) {
       this.rijksmuseumApiService
         .getDetails(this.objectNumber)
-        .then((artObjectDetails) => {
+        .subscribe((artObjectDetails) => {
           this.artObjectDetails = artObjectDetails;
         });
     }
