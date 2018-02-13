@@ -1,4 +1,4 @@
-<div *ngIf="artObjectDetails">
+<div *ngIf="artObjectDetails$ | async as artObjectDetails">
   <h2>{{artObjectDetails.longTitle}}</h2>
   <hr>
   <p>{{artObjectDetails.description}}</p>

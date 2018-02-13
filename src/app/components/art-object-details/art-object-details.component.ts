@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { IArtObjectDetails, RijksmuseumApiService } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 
@@ -8,8 +9,8 @@ import { IArtObjectDetails, RijksmuseumApiService } from '../../services/rijksmu
   styleUrls: ['./art-object-details.component.css'],
 })
 export class ArtObjectDetailsComponent implements OnChanges {
-  public artObjectDetails: IArtObjectDetails | undefined;
   @Input() public objectNumber: string | undefined;
+  public artObjectDetails$: Observable<IArtObjectDetails> | undefined;
 
   constructor(
     private rijksmuseumApiService: RijksmuseumApiService,
@@ -17,18 +18,15 @@ export class ArtObjectDetailsComponent implements OnChanges {
 
   public ngOnChanges(changes: SimpleChanges) {
     if ('objectNumber' in changes) {
-      this.artObjectDetails = undefined;
       this.loadDetails();
     }
   }
 
   private loadDetails() {
+    this.artObjectDetails$ = undefined;
+
     if (this.objectNumber) {
-      this.rijksmuseumApiService
-        .getDetails(this.objectNumber)
-        .subscribe((artObjectDetails) => {
-          this.artObjectDetails = artObjectDetails;
-        });
+      this.artObjectDetails$ = this.rijksmuseumApiService.getDetails(this.objectNumber);
     }
   }
 }
