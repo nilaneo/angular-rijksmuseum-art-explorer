@@ -1,6 +1,6 @@
 <ul class="art-objects-list">
   <li
-    *ngFor="let artObject of artObjects"
+    *ngFor="let artObject of artObjects$ | async"
     class="art-objects-list-item"
     [ngClass]="{'is-selected': isSelected(artObject)}"
     (click)="selectArtObject(artObject)"

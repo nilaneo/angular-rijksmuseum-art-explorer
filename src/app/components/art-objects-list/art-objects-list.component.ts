@@ -1,4 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 
 import {
   RijksmuseumApiService,
@@ -21,7 +24,7 @@ export interface IOnListLoadEvent {
   styleUrls: ['./art-objects-list.component.css'],
 })
 export class ArtObjectsListComponent implements OnChanges {
-  public artObjects: IArtObject[] | undefined;
+  public artObjects$: Observable<IArtObject[]> | undefined;
   public selectedArtObjectNumber: string | undefined;
   @Input() public searchQuery: string | undefined;
   @Input() public sortOrder: SortOrder | undefined;
@@ -55,16 +58,16 @@ export class ArtObjectsListComponent implements OnChanges {
   }
 
   private loadList() {
-    this.rijksmuseumApiService
+    this.artObjects$ = this.rijksmuseumApiService
       .getList({
         searchQuery: this.searchQuery,
         sortOrder: this.sortOrder,
         page: this.page,
         pageSize: this.pageSize,
       })
-      .subscribe((data) => {
-        this.artObjects = data.artObjects;
+      .do((data) => {
         this.listLoad.emit({ artObjectsListResponseData: data });
-      });
+      })
+      .map((data) => data.artObjects);
   }
 }
