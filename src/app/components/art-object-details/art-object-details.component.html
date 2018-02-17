@@ -1,6 +1,14 @@
-<div *ngIf="artObjectDetails$ | async as artObjectDetails">
-  <h2>{{artObjectDetails.longTitle}}</h2>
-  <hr>
-  <p>{{artObjectDetails.description}}</p>
-  <img [src]="artObjectDetails.webImage.url" class="art-object-details-img">
+<div *ngIf="artObjectDetails$; else pleaseSelectArtObject">
+  <div *ngIf="artObjectDetails$ | async as artObjectDetails; else loading">
+    <h2>{{artObjectDetails.longTitle}}</h2>
+    <hr>
+    <p>{{artObjectDetails.description}}</p>
+    <img [src]="artObjectDetails.webImage.url" class="art-object-details-img">
+  </div>
 </div>
+
+<ng-template #pleaseSelectArtObject>
+  Please select an art object from the list to see its details.
+</ng-template>
+
+<ng-template #loading>Loading details...</ng-template>

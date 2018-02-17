@@ -1,6 +1,9 @@
-<ul class="art-objects-list">
+<ul
+  *ngIf="artObjects$ | async as artObjects; else loading"
+  class="art-objects-list"
+>
   <li
-    *ngFor="let artObject of artObjects$ | async"
+    *ngFor="let artObject of artObjects"
     class="art-objects-list-item"
     [ngClass]="{'is-selected': isSelected(artObject)}"
     (click)="selectArtObject(artObject)"
@@ -8,3 +11,7 @@
     {{artObject.title}}
   </li>
 </ul>
+
+<ng-template #loading>
+  <div>Loading art objects...</div>
+</ng-template>
