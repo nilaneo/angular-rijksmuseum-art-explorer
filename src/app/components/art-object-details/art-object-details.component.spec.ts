@@ -1,34 +1,35 @@
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+
 import { ArtObjectDetailsComponent } from './art-object-details.component';
 import { IArtObjectDetails } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 
-describe('artObjectDetailsComponent', () => {
+fdescribe('artObjectDetailsComponent', () => {
   let rijksmuseumApiService: { getDetails: jasmine.Spy };
   let artObjectDetailsComponent: ArtObjectDetailsComponent;
-  let getDetailsDefer: any;
+  let getDetailsSubject: ReplaySubject<IArtObjectDetails>;
 
   beforeEach(() => {
     rijksmuseumApiService = {
       getDetails: jasmine.createSpy(),
     };
 
-    getDetailsDefer = {};
-    getDetailsDefer.promise = new Promise((resolve, reject) => {
-      getDetailsDefer.resolve = resolve;
-      getDetailsDefer.reject = reject;
-    });
+    getDetailsSubject = new ReplaySubject();
 
-    rijksmuseumApiService.getDetails.and.returnValue(getDetailsDefer.promise);
+    rijksmuseumApiService.getDetails
+      .and.returnValue(getDetailsSubject.asObservable());
 
     artObjectDetailsComponent = new ArtObjectDetailsComponent(rijksmuseumApiService as any);
   });
 
   describe('ngOnChanges', () => {
     beforeEach(() => {
-      artObjectDetailsComponent.artObjectDetails = {
+      artObjectDetailsComponent.artObjectDetails$ = Observable.of({
         longTitle: 'Old Art Object',
         description: 'Some old description',
         webImage: { url: '...' },
-      };
+      });
       artObjectDetailsComponent.objectNumber = 'abc567';
     });
 
@@ -38,7 +39,7 @@ describe('artObjectDetailsComponent', () => {
       });
 
       it('should not unset old details', () => {
-        expect(artObjectDetailsComponent.artObjectDetails).not.toBeUndefined();
+        expect(artObjectDetailsComponent.artObjectDetails$).not.toBeUndefined();
       });
 
       it('should not load details', () => {
@@ -61,10 +62,6 @@ describe('artObjectDetailsComponent', () => {
         artObjectDetailsComponent.ngOnChanges(changes);
       });
 
-      it('should unset old details', () => {
-        expect(artObjectDetailsComponent.artObjectDetails).toBeUndefined();
-      });
-
       it('should load new details', () => {
         expect(rijksmuseumApiService.getDetails).toHaveBeenCalledWith('bac123');
       });
@@ -79,11 +76,23 @@ describe('artObjectDetailsComponent', () => {
             webImage: { url: '...' },
           };
 
-          getDetailsDefer.resolve(newArtObjectDetails);
+          getDetailsSubject.next(newArtObjectDetails);
+          getDetailsSubject.complete();
         });
 
-        it('should store new details', () => {
-          expect(artObjectDetailsComponent.artObjectDetails).toBe(newArtObjectDetails);
+        it('should store new details', (done: DoneFn) => {
+          expect(artObjectDetailsComponent.artObjectDetails$).toBeDefined();
+
+          if (artObjectDetailsComponent.artObjectDetails$) {
+            artObjectDetailsComponent
+              .artObjectDetails$
+              .subscribe((artObjectDetails) => {
+                expect(artObjectDetails).toBe(newArtObjectDetails);
+                done();
+              });
+          } else {
+            done();
+          }
         });
       });
     });
@@ -104,7 +113,7 @@ describe('artObjectDetailsComponent', () => {
       });
 
       it('should unset old details', () => {
-        expect(artObjectDetailsComponent.artObjectDetails).toBeUndefined();
+        expect(artObjectDetailsComponent.artObjectDetails$).toBeUndefined();
       });
 
       it('should not load details', () => {
