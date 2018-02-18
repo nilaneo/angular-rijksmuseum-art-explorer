@@ -1,3 +1,5 @@
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+
 import { ArtObjectsListComponent } from './art-objects-list.component';
 import { IArtObjectsListResponseData } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 import { SortOrder } from '../../values/sort-orders.value';
@@ -5,20 +7,17 @@ import { SortOrder } from '../../values/sort-orders.value';
 describe('artObjectsListComponent', () => {
   let artObjectsListComponent: ArtObjectsListComponent;
   let rijksmuseumApiService: { getList: jasmine.Spy };
-  let getListDefer: any;
+  let getListSubject: ReplaySubject<IArtObjectsListResponseData>;
 
   beforeEach(() => {
     rijksmuseumApiService = {
       getList: jasmine.createSpy(),
     };
 
-    getListDefer = {};
-    getListDefer.promise = new Promise((resolve, reject) => {
-      getListDefer.resolve = resolve;
-      getListDefer.reject = reject;
-    });
+    getListSubject = new ReplaySubject();
 
-    rijksmuseumApiService.getList.and.returnValue(getListDefer.promise);
+    rijksmuseumApiService.getList
+      .and.returnValue(getListSubject.asObservable());
 
     artObjectsListComponent = new ArtObjectsListComponent(rijksmuseumApiService as any);
     spyOn(artObjectsListComponent.listLoad, 'emit');
@@ -114,19 +113,38 @@ describe('artObjectsListComponent', () => {
             count: 2,
           };
 
-          getListDefer.resolve(artObjectsListResponseData);
+          getListSubject.next(artObjectsListResponseData);
+          getListSubject.complete();
         });
 
-        it('should store art objects from result', () => {
-          expect(artObjectsListComponent.artObjects).toEqual([
-            { objectNumber: 'abc123', title: 'Art #1' },
-            { objectNumber: 'bcd234', title: 'Art #2' },
-          ]);
+        it('should store art objects from result', (done: DoneFn) => {
+          expect(artObjectsListComponent.artObjects$).toBeDefined();
+
+          if (artObjectsListComponent.artObjects$) {
+            artObjectsListComponent.artObjects$.subscribe((artObjects) => {
+              expect(artObjects).toEqual([
+                { objectNumber: 'abc123', title: 'Art #1' },
+                { objectNumber: 'bcd234', title: 'Art #2' },
+              ]);
+              done();
+            });
+          } else {
+            done();
+          }
         });
 
-        it('should emit listLoad event', () => {
-          expect(artObjectsListComponent.listLoad.emit)
-            .toHaveBeenCalledWith({ artObjectsListResponseData });
+        it('should emit listLoad event', (done: DoneFn) => {
+          expect(artObjectsListComponent.artObjects$).toBeDefined();
+
+          if (artObjectsListComponent.artObjects$) {
+            artObjectsListComponent.artObjects$.subscribe(() => {
+              expect(artObjectsListComponent.listLoad.emit)
+                .toHaveBeenCalledWith({ artObjectsListResponseData });
+              done();
+            });
+          } else {
+            done();
+          }
         });
       });
     });

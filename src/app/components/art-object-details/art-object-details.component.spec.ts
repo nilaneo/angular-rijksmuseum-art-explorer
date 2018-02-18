@@ -5,7 +5,7 @@ import 'rxjs/add/observable/of';
 import { ArtObjectDetailsComponent } from './art-object-details.component';
 import { IArtObjectDetails } from '../../services/rijksmuseum-api/rijksmuseum-api.service';
 
-fdescribe('artObjectDetailsComponent', () => {
+describe('artObjectDetailsComponent', () => {
   let rijksmuseumApiService: { getDetails: jasmine.Spy };
   let artObjectDetailsComponent: ArtObjectDetailsComponent;
   let getDetailsSubject: ReplaySubject<IArtObjectDetails>;
