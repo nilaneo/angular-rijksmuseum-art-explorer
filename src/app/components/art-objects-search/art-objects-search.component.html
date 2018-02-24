@@ -1,8 +1,13 @@
 <form (submit)="onSubmit(searchInput.value)">
-  <input
-    #searchInput
-    type="text"
-    placeholder="Enter search query"
-  />
-  <button type="submit">Search</button>
+  <mat-form-field>
+    <input
+      matInput
+      #searchInput
+      type="text"
+      placeholder="Enter search query"
+    />
+  </mat-form-field>
+  <button mat-raised-button type="submit">Search</button>
 </form>
+
+

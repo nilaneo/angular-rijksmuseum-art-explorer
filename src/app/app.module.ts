@@ -13,11 +13,32 @@ import { ArtObjectsSearchComponent } from './components/art-objects-search/art-o
 import { ArtObjectsSortComponent } from './components/art-objects-sort/art-objects-sort.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 
+import {
+  MatToolbarModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatFormFieldControl,
+  MatButtonModule,
+  MatInputModule,
+  MatSelectModule,
+  MatOptionModule,
+} from '@angular/material';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    MatToolbarModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
   ],
   providers: [
     RijksmuseumApiService,

@@ -1,16 +1,18 @@
-<ul
+<mat-list
+  role="list"
   *ngIf="artObjects$ | async as artObjects; else loading"
   class="art-objects-list"
 >
-  <li
+  <mat-list-item
+    role="listitem"
     *ngFor="let artObject of artObjects"
     class="art-objects-list-item"
     [ngClass]="{'is-selected': isSelected(artObject)}"
     (click)="selectArtObject(artObject)"
   >
     {{artObject.title}}
-  </li>
-</ul>
+  </mat-list-item>
+</mat-list>
 
 <ng-template #loading>
   <div>Loading art objects...</div>

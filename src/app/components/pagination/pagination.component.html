@@ -1,4 +1,5 @@
 <button
+  mat-button
   type="button"
   (click)="onClickPrevious()"
   [disabled]="currentPage === 1"
@@ -8,17 +9,20 @@
 
 <span *ngIf="totalPages">of {{totalPages}}</span>
 <button
+  mat-button
   type="button"
   (click)="onClickNext()"
 >Next</button>
 
-<select
-  #pageSizeSelect
-  [value]="pageSize"
-  (change)="onChoosePageSize(pageSizeSelect.value)"
->
-  <option
-    *ngFor="let pageSizeOption of pageSizeOptions"
-    [value]="pageSizeOption"
-  >{{ pageSizeOption + ' per page' }}</option>
-</select>
+<mat-form-field>
+  <mat-select
+    #pageSizeSelect
+    [value]="pageSize"
+    (change)="onChoosePageSize(pageSizeSelect.value)"
+  >
+    <mat-option
+      *ngFor="let pageSizeOption of pageSizeOptions"
+      [value]="pageSizeOption"
+    >{{ pageSizeOption + ' per page' }}</mat-option>
+  </mat-select>
+</mat-form-field>

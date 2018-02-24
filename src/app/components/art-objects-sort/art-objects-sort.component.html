@@ -1,13 +1,15 @@
 <span>Order by: </span>
-<select
-  #sortOrderSelect
-  [value]="sortOrder"
-  (change)="changeSortOrder(sortOrderSelect.value)"
->
-  <option [value]="sortOrders.RELEVANCE">Relevance</option>
-  <option [value]="sortOrders.OBJECT_TYPE">Type of work</option>
-  <option [value]="sortOrders.CHRONOLOGIC">Chronological old > new</option>
-  <option [value]="sortOrders.ACHRONOLOGIC">Chronological new > old</option>
-  <option [value]="sortOrders.ARTIST_ASC">Artist A > Z</option>
-  <option [value]="sortOrders.ARTIST_DESC">Artist Z > A</option>
-</select>
+<mat-form-field>
+  <mat-select
+    #sortOrderSelect
+    [value]="sortOrder"
+    (change)="changeSortOrder(sortOrderSelect.value)"
+  >
+    <mat-option [value]="sortOrders.RELEVANCE">Relevance</mat-option>
+    <mat-option [value]="sortOrders.OBJECT_TYPE">Type of work</mat-option>
+    <mat-option [value]="sortOrders.CHRONOLOGIC">Chronological old > new</mat-option>
+    <mat-option [value]="sortOrders.ACHRONOLOGIC">Chronological new > old</mat-option>
+    <mat-option [value]="sortOrders.ARTIST_ASC">Artist A > Z</mat-option>
+    <mat-option [value]="sortOrders.ARTIST_DESC">Artist Z > A</mat-option>
+  </mat-select>
+</mat-form-field>
