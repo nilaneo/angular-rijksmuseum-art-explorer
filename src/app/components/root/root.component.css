@@ -1,9 +1,10 @@
 .container {
   display: flex;
+  padding: 20px;
 }
 
 .art-objects-list-wrapper {
-  flex: 0 0 300px;
+  flex: 0 0 500px;
 }
 
 .art-object-details-wrapper {

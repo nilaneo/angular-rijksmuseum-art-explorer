@@ -4,7 +4,7 @@ import { defaultSortOrderToken, SortOrder } from '../../values/sort-orders.value
 import { IOnSearchEvent } from '../art-objects-search/art-objects-search.component';
 import { IOnSortOrderChangeEvent } from '../art-objects-sort/art-objects-sort.component';
 import { IOnListLoadEvent, IOnSelectEvent } from '../art-objects-list/art-objects-list.component';
-import { IOnPageChangeEvent, IOnPageSizeChangeEvent } from '../pagination/pagination.component';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'rm-root',
@@ -17,6 +17,7 @@ export class RootComponent {
   public sortOrder: SortOrder;
   public currentPage = 1;
   public pageSize = 10;
+  public pageSizeOptions = [5, 10, 15, 20, 25];
   public totalPages: number | undefined;
 
   constructor(
@@ -43,12 +44,9 @@ export class RootComponent {
     this.selectedArtObjectNumber = $event.objectNumber;
   }
 
-  public onPageChange($event: IOnPageChangeEvent) {
-    this.currentPage = $event.newCurrentPage;
-  }
-
-  public onPageSizeChange($event: IOnPageSizeChangeEvent) {
-    this.pageSize = $event.newPageSize;
+  public onPageChange($event: PageEvent) {
+    this.currentPage = $event.pageIndex;
+    this.pageSize = $event.pageSize;
   }
 
   public onListLoad($event: IOnListLoadEvent) {

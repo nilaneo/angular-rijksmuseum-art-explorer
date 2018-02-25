@@ -11,7 +11,6 @@ import { ArtObjectsListComponent } from './components/art-objects-list/art-objec
 import { ArtObjectDetailsComponent } from './components/art-object-details/art-object-details.component';
 import { ArtObjectsSearchComponent } from './components/art-objects-search/art-objects-search.component';
 import { ArtObjectsSortComponent } from './components/art-objects-sort/art-objects-sort.component';
-import { PaginationComponent } from './components/pagination/pagination.component';
 
 import {
   MatToolbarModule,
@@ -22,6 +21,7 @@ import {
   MatInputModule,
   MatSelectModule,
   MatOptionModule,
+  MatPaginatorModule
 } from '@angular/material';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -39,6 +39,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
+    MatPaginatorModule,
   ],
   providers: [
     RijksmuseumApiService,
@@ -50,7 +51,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ArtObjectDetailsComponent,
     ArtObjectsSearchComponent,
     ArtObjectsSortComponent,
-    PaginationComponent,
   ],
   bootstrap: [RootComponent],
 })
