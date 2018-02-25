@@ -21,7 +21,8 @@ import {
   MatInputModule,
   MatSelectModule,
   MatOptionModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatCardModule,
 } from '@angular/material';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -40,6 +41,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatSelectModule,
     MatOptionModule,
     MatPaginatorModule,
+    MatCardModule,
   ],
   providers: [
     RijksmuseumApiService,

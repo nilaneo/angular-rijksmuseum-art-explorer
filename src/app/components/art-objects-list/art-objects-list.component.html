@@ -1,18 +1,19 @@
-<mat-list
+<ul
   role="list"
   *ngIf="artObjects$ | async as artObjects; else loading"
   class="art-objects-list"
 >
-  <mat-list-item
+  <li
     role="listitem"
     *ngFor="let artObject of artObjects"
-    class="art-objects-list-item"
-    [ngClass]="{'is-selected': isSelected(artObject)}"
-    (click)="selectArtObject(artObject)"
   >
-    {{artObject.title}}
-  </mat-list-item>
-</mat-list>
+    <mat-card
+      class="art-object"
+      (click)="selectArtObject(artObject)"
+      [ngClass]="{'is-selected': isSelected(artObject)}"
+    >{{artObject.title}}</mat-card>
+</li>
+</ul>
 
 <ng-template #loading>
   <div>Loading art objects...</div>

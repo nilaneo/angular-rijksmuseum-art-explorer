@@ -3,17 +3,16 @@
   padding-left: 0;
 }
 
-.art-objects-list-item {
-  padding: 10px;
-  border: 1px solid #ccc;
+.art-object {
+  width: 100%;
   margin-bottom: 10px;
   cursor: pointer;
 }
 
-.art-objects-list-item:hover {
+.art-object:hover {
   background: #eee;
 }
 
-.art-objects-list-item.is-selected {
+.art-object.is-selected {
   background: #ddd;
 }
