@@ -23,6 +23,7 @@ import {
   MatOptionModule,
   MatPaginatorModule,
   MatCardModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -42,6 +43,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatOptionModule,
     MatPaginatorModule,
     MatCardModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     RijksmuseumApiService,

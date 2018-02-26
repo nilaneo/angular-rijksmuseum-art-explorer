@@ -11,4 +11,8 @@
   Please select an art object from the list to see its details.
 </ng-template>
 
-<ng-template #loading>Loading details...</ng-template>
+<ng-template #loading>
+  <mat-progress-spinner
+    mode="indeterminate">
+  </mat-progress-spinner>
+</ng-template>
