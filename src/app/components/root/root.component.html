@@ -18,12 +18,14 @@
       (select)="onSelect($event)"
       (listLoad)="onListLoad($event)"
     ></rm-art-objects-list>
+
     <mat-paginator
       [length]="totalPages"
       [pageSize]="pageSize"
       [pageSizeOptions]="pageSizeOptions"
-      (page)="onPageChange($event)"
+      [pageIndex]="currentPage"
       [showFirstLastButtons]="true"
+      (page)="onPageChange($event)"
     ></mat-paginator>
   </div>
   <div class="art-object-details-wrapper">

@@ -25,8 +25,8 @@ describe('rootComponent', () => {
       expect(rootComponent.searchQuery).toBe('hello');
     });
 
-    it('should set current page to 1', () => {
-      expect(rootComponent.currentPage).toBe(1);
+    it('should set current page to 0', () => {
+      expect(rootComponent.currentPage).toBe(0);
     });
   });
 
@@ -45,23 +45,17 @@ describe('rootComponent', () => {
   describe('onPageChange', () => {
     beforeEach(() => {
       rootComponent.onPageChange({
-        newCurrentPage: 42,
+        pageIndex: 42,
+        pageSize: 100,
+        length: 100500
       });
     });
 
     it('should save current page from event', () => {
       expect(rootComponent.currentPage).toBe(42);
     });
-  });
 
-  describe('onPageSizeChange', () => {
-    beforeEach(() => {
-      rootComponent.onPageSizeChange({
-        newPageSize: 100,
-      });
-    });
-
-    it('should save current page from event', () => {
+    it('should save page size from event', () => {
       expect(rootComponent.pageSize).toBe(100);
     });
   });
@@ -80,8 +74,8 @@ describe('rootComponent', () => {
         expect(rootComponent.sortOrder).toBe(SortOrder.ARTIST_ASC);
       });
 
-      it('should set current page to 1', () => {
-        expect(rootComponent.currentPage).toBe(1);
+      it('should set current page to 0', () => {
+        expect(rootComponent.currentPage).toBe(0);
       });
     });
 
@@ -97,8 +91,8 @@ describe('rootComponent', () => {
         expect(rootComponent.sortOrder).toBe(SortOrder.CHRONOLOGIC);
       });
 
-      it('should set current page to 1', () => {
-        expect(rootComponent.currentPage).toBe(1);
+      it('should set current page to 0', () => {
+        expect(rootComponent.currentPage).toBe(0);
       });
     });
   });

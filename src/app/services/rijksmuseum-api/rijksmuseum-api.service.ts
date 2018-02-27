@@ -43,7 +43,7 @@ export class RijksmuseumApiService {
   public getList({
     searchQuery = '',
     sortOrder = this.defaultSortOrder,
-    page = 1,
+    page = 0,
     pageSize = 10,
   }: IGetListParams = {}) {
     return this.httpClient
@@ -54,7 +54,7 @@ export class RijksmuseumApiService {
           q: searchQuery,
           s: sortOrder,
           ps: String(pageSize),
-          p: String(page),
+          p: String(page + 1),
         },
       });
   }

@@ -47,7 +47,7 @@ describe('rijksmuseumApiService', () => {
             q: 'some search query',
             s: SortOrder.RELEVANCE,
             ps: '5',
-            p: '23',
+            p: '24',
           },
         });
       });
@@ -69,7 +69,7 @@ describe('rijksmuseumApiService', () => {
         });
 
         describe('returned value', () => {
-          it('should be promise resolved by response\'s data', (done) => {
+          it('should be promise resolved by response\'s data', (done: DoneFn) => {
             getListResult.subscribe((value) => {
               expect(value).toEqual(artObjectsListResponseData);
               done();
@@ -114,7 +114,7 @@ describe('rijksmuseumApiService', () => {
         });
 
         describe('returned value', () => {
-          it('should be promise resolved by response\'s data', (done) => {
+          it('should be promise resolved by response\'s data', (done: DoneFn) => {
             getListResult.subscribe((value) => {
               expect(value).toEqual(artObjectsListResponseData);
               done();
@@ -160,7 +160,7 @@ describe('rijksmuseumApiService', () => {
       });
 
       describe('returned value', () => {
-        it('should be promise resolved by response\'s data', (done) => {
+        it('should be promise resolved by response\'s data', (done: DoneFn) => {
           getDetailsResult.subscribe((value) => {
             expect(value).toEqual(artObjectDetailsResponseData.artObject);
             done();
