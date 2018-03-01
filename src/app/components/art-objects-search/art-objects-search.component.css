@@ -1,0 +1,13 @@
+.rm-search-form {
+  display: flex;
+  align-items: center;
+}
+
+.rm-search-field {
+  flex: 1 1 auto;
+}
+
+.rm-search-button {
+  flex: 0 0 auto;
+  margin-left: 20px;
+}

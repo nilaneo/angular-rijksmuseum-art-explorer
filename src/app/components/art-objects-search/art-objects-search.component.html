@@ -1,5 +1,8 @@
-<form (submit)="onSubmit(searchInput.value)">
-  <mat-form-field>
+<form
+  class="rm-search-form"
+  (submit)="onSubmit(searchInput.value)"
+>
+  <mat-form-field class="rm-search-field">
     <input
       matInput
       #searchInput
@@ -7,7 +10,13 @@
       placeholder="Enter your search query"
     />
   </mat-form-field>
-  <button mat-raised-button type="submit">Search</button>
+
+  <button
+    class="rm-search-button"
+    mat-raised-button
+    color="primary"
+    type="submit"
+  >Search</button>
 </form>
 
 

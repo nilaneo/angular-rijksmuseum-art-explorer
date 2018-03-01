@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 12px;
+}
+
+.rm-sort-label {
+  margin-right: 20px;
+  color: rgba(0,0,0,.54);
+}
