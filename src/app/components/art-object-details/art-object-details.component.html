@@ -1,9 +1,11 @@
-<div *ngIf="artObjectDetails$; else pleaseSelectArtObject">
-  <div *ngIf="artObjectDetails$ | async as artObjectDetails; else loading">
-    <h2>{{artObjectDetails.longTitle}}</h2>
-    <hr>
-    <p>{{artObjectDetails.description}}</p>
-    <img [src]="artObjectDetails.webImage.url" class="art-object-details-img">
+<div *ngIf="!hasError; else errorMessage">
+  <div *ngIf="artObjectDetails$; else pleaseSelectArtObject">
+    <div *ngIf="artObjectDetails$ | async as artObjectDetails; else loading">
+      <h2>{{artObjectDetails.longTitle}}</h2>
+      <hr>
+      <p>{{artObjectDetails.description}}</p>
+      <img [src]="artObjectDetails.webImage.url" class="art-object-details-img">
+    </div>
   </div>
 </div>
 
@@ -15,4 +17,8 @@
   <mat-progress-spinner
     mode="indeterminate">
   </mat-progress-spinner>
+</ng-template>
+
+<ng-template #errorMessage>
+  Error. Please try again later.
 </ng-template>
