@@ -1,7 +1,9 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
 
 import {
   RijksmuseumApiService,
@@ -26,6 +28,7 @@ export interface IOnListLoadEvent {
 export class ArtObjectsListComponent implements OnChanges {
   public artObjects$: Observable<IArtObject[]> | undefined;
   public selectedArtObjectNumber: string | undefined;
+  public hasError = false;
   @Input() public searchQuery: string | undefined;
   @Input() public sortOrder: SortOrder | undefined;
   @Input() public page: number | undefined;
@@ -57,7 +60,12 @@ export class ArtObjectsListComponent implements OnChanges {
     return artObject.objectNumber === this.selectedArtObjectNumber;
   }
 
+  public onClickTryAgain() {
+    this.loadList();
+  }
+
   private loadList() {
+    this.hasError = false;
     this.artObjects$ = this.rijksmuseumApiService
       .getList({
         searchQuery: this.searchQuery,
@@ -68,6 +76,10 @@ export class ArtObjectsListComponent implements OnChanges {
       .do((data) => {
         this.listLoad.emit({ artObjectsListResponseData: data });
       })
-      .map((data) => data.artObjects);
+      .map((data) => data.artObjects)
+      .catch((error) => {
+        this.hasError = true;
+        return Observable.throw(error);
+      });
   }
 }

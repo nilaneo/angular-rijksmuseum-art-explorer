@@ -1,19 +1,31 @@
-<ul
-  role="list"
-  *ngIf="artObjects$ | async as artObjects; else loading"
-  class="art-objects-list"
->
-  <li
-    role="listitem"
-    *ngFor="let artObject of artObjects"
+<div *ngIf="!hasError; else errorMessage">
+  <ul
+    role="list"
+    *ngIf="artObjects$ | async as artObjects; else loading"
+    class="art-objects-list"
   >
-    <mat-card
-      class="art-object"
-      (click)="selectArtObject(artObject)"
-      [ngClass]="{'is-selected': isSelected(artObject)}"
-    >{{artObject.title}}</mat-card>
-</li>
-</ul>
+    <li
+      role="listitem"
+      *ngFor="let artObject of artObjects"
+    >
+      <mat-card
+        class="art-object"
+        (click)="selectArtObject(artObject)"
+        [ngClass]="{'is-selected': isSelected(artObject)}"
+      >{{artObject.title}}</mat-card>
+    </li>
+  </ul>
+</div>
+
+<ng-template #errorMessage>
+  <p>Error loading the list of art objects. Please try to reload the page.</p>
+  <button
+    (click)="onClickTryAgain()"
+    mat-raised-button
+    color="warn"
+    type="button"
+  >Try again</button>
+</ng-template>
 
 <ng-template #loading>
   <mat-progress-spinner
